@@ -20,16 +20,24 @@
         <h1>La liste de tous les employers dans le departement: <?= $departement['dept_name']; ?></h1>
     </header>
     <main>
-        <?php foreach($id_emps as $id){ 
-            $id_emp = $id['emp_no'];
-            $employer = avoir_employe($id_emp); ?> 
-            <div class="row text-center">
-                <div class="col-sm-4 employer text-center">
-                    <p>Nom : <?= $employer['first_name']; ?> <?= $employer['last_name']; ?></p>
-                    <p>Date de naissance : <?= $employer['birth_date']; ?></p>
-                </div>
-            </div>
-        <?php } ?>
+        <table border="1">
+            <tr>
+                <th>Nom</th>
+                <th>Date de naissance</th>
+            </tr>
+            <?php foreach($id_emps as $id){ 
+                $id_emp = $id['emp_no'];
+                $employer = avoir_employe($id_emp); ?> 
+                <tr>
+                    <td>
+                        <?= $employer['first_name']; ?> <?= $employer['last_name']; ?>
+                    </td>
+                    <td>
+                        <?= $employer['birth_date']; ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
     </main>
     <footer></footer>
 </body>
