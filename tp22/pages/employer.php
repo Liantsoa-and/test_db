@@ -4,18 +4,9 @@
  $id_dep = $_GET['id_dep'];
  $id_emps = avoir_idemployes($id_dep);
  $departement = avoir_departement($id_dep);
+ include("../inc/nav.php");
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/style.css">
-    <link
-    href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
     <header>
         <h1>La liste de tous les employers dans le departement: <?= $departement['dept_name']; ?></h1>
     </header>
@@ -30,7 +21,9 @@
                 $employer = avoir_employe($id_emp); ?> 
                 <tr>
                     <td>
-                        <?= $employer['first_name']; ?> <?= $employer['last_name']; ?>
+                        <a href="fiche.php?id_emp=<?= $employer['emp_no'] ;?>">
+                            <?= $employer['first_name']; ?> <?= $employer['last_name']; ?>
+                        </a>
                     </td>
                     <td>
                         <?= $employer['birth_date']; ?>

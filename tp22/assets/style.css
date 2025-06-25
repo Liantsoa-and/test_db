@@ -3,3 +3,114 @@
     max-width: 30%;
     max-height: 20%;
 }
+/* Reset & base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f0f8ff; /* bleu très clair */
+    color: #003366; /* bleu foncé pour le texte */
+    line-height: 1.6;
+    padding: 2rem;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #e6f7ff;
+    border-bottom: 3px solid #cceeff;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: #007acc;
+    font-size: 2rem;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 122, 204, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0f0ff;
+}
+
+th {
+    background-color: #cceeff;
+    color: #003366;
+    font-size: 1.1rem;
+}
+
+td a {
+    text-decoration: none;
+    color: #007acc;
+    transition: color 0.2s ease;
+}
+
+td a:hover {
+    color: #005999;
+}
+
+td p {
+    margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+        background-color: #fff;
+        border: 1px solid #cceeff;
+        border-radius: 6px;
+        padding: 1rem;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td::before {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #007acc;
+    }
+
+    td:nth-of-type(1)::before { content: "Département"; }
+    td:nth-of-type(2)::before { content: "Manager actuel"; }
+}
+
+/* Footer placeholder */
+footer {
+    height: 50px;
+    margin-top: 3rem;
+}
