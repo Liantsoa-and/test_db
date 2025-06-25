@@ -11,7 +11,7 @@
         <table border="1">
             <tr>
                 <th>Departement</th>
-                <th>Nom du manageur en cour</th>
+                <th>Nom du manageur en cours</th>
             </tr>
             <?php foreach($departements as $departement){ ?> 
                 <tr>

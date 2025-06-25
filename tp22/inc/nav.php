@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departement</title>
+    <title>Departements</title>
     <link rel="stylesheet" href="../assets/style.css">
     <link
     href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../pages/index.php">Departement</a>
+          <a class="nav-link active" aria-current="page" href="../pages/index.php">Departements</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>

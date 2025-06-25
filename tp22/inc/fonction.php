@@ -66,4 +66,20 @@ function avoir_departement($id){
 
     return $donnes;
 }
+
+function avoir_histo_salaire($id_emp){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    $retour = [];
+    while($donnes = mysqli_fetch_assoc($result)){
+        $retour[] = $donnes;
+    }
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
 ?>
