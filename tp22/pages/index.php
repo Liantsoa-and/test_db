@@ -5,7 +5,7 @@
  include("../inc/nav.php");
 ?>
     <header>
-        <h1>La liste de tous les departements :</h1>
+        <h1>Liste de tous les departements :</h1>
     </header>
     <main>
         <table border="1">

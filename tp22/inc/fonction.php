@@ -16,6 +16,17 @@ function manager_en_cours($id_dep){
     return $retour;
 }
 
+function son_departement($id_emp){
+    $connexion = connexion();
+
+    $sql = "SELECT d.dept_name FROM dept_emp as dept_e join departments as d on dept_e.dept_no = d.dept_no WHERE emp_no = '$id_emp'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnes;
+}
+
 function tous_departement (){
    $connexion = connexion();
 
@@ -31,10 +42,11 @@ function tous_departement (){
     return $retour;
 } 
 
-function avoir_idemployes($id_dep){
+function avoir_employes_dep($id_dep){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM dept_emp WHERE dept_no = '$id_dep'";
+    $sql = "SELECT dept.dept_no,emp.first_name,emp.last_name,emp.birth_date,emp.gender,emp.hire_date,emp.emp_no
+    FROM dept_emp AS dept JOIN employees AS emp ON dept.emp_no = emp.emp_no WHERE dept_no = '$id_dep'";
     $result = mysqli_query($connexion, $sql);
     $retour = [];
     while($donnes = mysqli_fetch_assoc($result)){
@@ -70,22 +82,7 @@ function avoir_departement($id){
 function avoir_histo_salaire($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp'";
-    $result = mysqli_query($connexion, $sql);
-    $donnes = mysqli_fetch_assoc($result);
-    $retour = [];
-    while($donnes = mysqli_fetch_assoc($result)){
-        $retour[] = $donnes;
-    }
-    fermer_connexion($connexion);
-
-    return $retour;
-}
-
-function recherche_dept($dept){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM departments WHERE dept_name LIKE '%$dept%' OR dept_name LIKE '$dept%' OR dept_name LIKE '%$dept'";
+    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp' AND to_date != '9999-01-01'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -101,21 +98,6 @@ function recherche_emp($emp){
     $connexion = connexion();
 
     $sql = "SELECT * FROM employees WHERE first_name LIKE '%$emp%' OR first_name LIKE '$emp%' OR first_name LIKE '%$emp' OR last_name LIKE '%$emp%' OR last_name LIKE '$emp%' OR last_name LIKE '%$emp'";
-    $result = mysqli_query($connexion, $sql);
-    $donnes = mysqli_fetch_assoc($result);
-    $retour = [];
-    while($donnes = mysqli_fetch_assoc($result)){
-        $retour[] = $donnes;
-    }
-    fermer_connexion($connexion);
-
-    return $retour;
-}
-
-function recherche_age($age_min , $age_max){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM employees WHERE birth_date >= '$age_min' AND birth_date <= '$age_max'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -183,7 +165,7 @@ function getDepartments() {
     return $retour;
 }
 
-function avoir_titre($id_emp){
+function avoir_histo_titre($id_emp){
     $connexion = connexion();
 
     $sql = "SELECT * FROM titles WHERE emp_no = '$id_emp'";
@@ -196,6 +178,28 @@ function avoir_titre($id_emp){
     fermer_connexion($connexion);
 
     return $retour;
+}
+
+function salaire_en_cours($id_emp){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp' AND to_date = '9999-01-01'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnes;
+}
+
+function titre_en_cours($id_emp){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM titles WHERE emp_no = '$id_emp' AND to_date = '9999-01-01'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnes;
 }
 
 ?>

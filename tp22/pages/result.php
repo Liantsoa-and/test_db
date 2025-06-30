@@ -31,7 +31,10 @@ include("../inc/nav.php");
             <?php foreach ($employes as $e): ?>
                 <tr>
                     <td><?= $e['emp_no'] ?></td>
-                    <td><?= htmlspecialchars($e['last_name']) ?></td>
+                    <td><a href="fiche.php?id_emp=<?= $e['emp_no'] ;?>">
+                            <?= htmlspecialchars($e['last_name']) ?>
+                        </a>
+                    </td>
                     <td><?= htmlspecialchars($e['first_name']) ?></td>
                     <td><?= $e['gender'] ?></td>
                     <td><?= $e['birth_date'] ?></td>
