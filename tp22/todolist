@@ -22,7 +22,7 @@ employes de ce departement.
     *[ok] appel a la fonction dans fiche.php
     *[ok] afficher les informations
 
-[]- Rajouter l'historique du salaire et de l'emploi occupe dans la fiche
+[ok]- Rajouter l'historique du salaire et de l'emploi occupe dans la fiche
 
 []- Créer un formulaire de recherche
 
