@@ -1,34 +1,41 @@
 <?php
 include("../inc/fonction.php");
-session_start();    
-$dep = $_POST['dep'];
-$nom = $_POST['nom_employee'];
-$min = $_POST['age_min'];
-$min = $_POST['age_max'];
-//$results = recherche($dep,$nom,$min,$max);
+session_start();
+
+$nom = $_POST['nom_employee'] ?? '';
+$dep = $_POST['dep'] ?? '';
+$age_min = $_POST['age_min'] ?? '';
+$age_max = $_POST['age_max'] ?? '';
+
+$employes = recherche_employes($nom, $dep, $age_min, $age_max);
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultats de recherche</title>
-</head>
+<html>
+<head><title>Résultats</title></head>
 <body>
-    <header></header>
-    <main>
+    <h2>Résultats de la recherche</h2>
+    <a href="formulaire.php">← Nouvelle recherche</a>
+
+    <?php if (empty($employes)): ?>
+        <p>Aucun résultat trouvé.</p>
+    <?php else: ?>
         <table border="1">
             <tr>
-                <th>Nom employees</th>
+                <th>ID</th><th>Nom</th><th>Prénom</th><th>Genre</th><th>Date de naissance</th><th>Date d’embauche</th><th>Âge</th>
             </tr>
-            <?php foreach($results as $emp){?>
+            <?php foreach ($employes as $e): ?>
                 <tr>
-                    <td><?= $emp['first_name'];?> <?= $emp['last_name'];?></td>
+                    <td><?= $e['emp_no'] ?></td>
+                    <td><?= htmlspecialchars($e['last_name']) ?></td>
+                    <td><?= htmlspecialchars($e['first_name']) ?></td>
+                    <td><?= $e['gender'] ?></td>
+                    <td><?= $e['birth_date'] ?></td>
+                    <td><?= $e['hire_date'] ?></td>
+                    <td><?= date('Y') - substr($e['birth_date'], 0, 4) ?></td>
                 </tr>
-            <?php } ?>
+            <?php endforeach; ?>
         </table>
-    </main>
-    <footer></footer>
-    
+    <?php endif; ?>
 </body>
 </html>

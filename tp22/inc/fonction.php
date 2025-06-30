@@ -127,4 +127,60 @@ function recherche_age($age_min , $age_max){
     return $retour;
 }
 
+function recherche_employes($nom, $dep, $age_min, $age_max) {
+    $connexion = connexion();
+
+    $conditions = [];
+    if (!empty($nom)) {
+        $conditions[] = "(first_name LIKE '%$nom%' OR last_name LIKE '%$nom%')";
+    }
+
+    if (!empty($age_min)) {
+        $conditions[] = "TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) >= " . intval($age_min);
+    }
+
+    if (!empty($age_max)) {
+        $conditions[] = "TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) <= " . intval($age_max);
+    }
+
+    if (!empty($dep)) {
+        $conditions[] = "emp_no IN (
+            SELECT emp_no FROM current_dept_emp WHERE dept_no = '$dep'
+        )";
+    }
+
+    $sql = "SELECT emp_no, first_name, last_name, gender, birth_date, hire_date
+            FROM employees";
+
+    if (!empty($conditions)) {
+        $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+    $sql .= " LIMIT 20";
+
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+
+    fermer_connexion($connexion);
+    return $retour;
+}
+
+function getAllDepartments() {
+    $connexion = connexion();
+
+    $sql = "SELECT dept_no, dept_name FROM departments ORDER BY dept_name";
+    $result = mysqli_query($connexion, $sql);
+
+    $retour = [];
+    while ($ligne = mysqli_fetch_assoc($result)) {
+        $retour[] = $ligne;
+    }
+
+    fermer_connexion($connexion);
+    return $retour;
+}
+
 ?>

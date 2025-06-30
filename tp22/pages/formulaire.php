@@ -1,33 +1,36 @@
 <?php
 include("../inc/fonction.php");
 session_start();
+
+$departements = getAllDepartments(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire</title>
+    <title>Recherche employé</title>
 </head>
 <body>
-    <header></header>
-    <main>
-        <form action="result.php" method="post">
-            <p>departement</p>   
-            <input type="text" name="dep" placeholder="departement">
-            <br>
-            <p>nom nom_employee</p>
-            <input type="text" name="nom_employee">
-            <br>
-            <p>age min</p>
-            <input type="number" name="age_min" placeholder="age minimal" min="18">
-            <br>
-            <p>age max</p>
-            <input type="number" name="age_max" max="99">
-            <br>
-            <input type="submit" value="Rechercher">
-        </form>
-    </main>
-    <footer></footer>
+    <h2>Recherche d'employés</h2>
+    <form action="result.php" method="post">
+        <label for="dep">Département :</label>
+        <select name="dep" id="dep">
+            <option value="">-- Tous --</option>
+            <?php foreach ($departements as $dep): ?>
+                <option value="<?= $dep['dept_no'] ?>"><?= htmlspecialchars($dep['dept_name']) ?></option>
+            <?php endforeach; ?>
+        </select><br><br>
+
+        <label for="nom_employee">Nom ou prénom :</label>
+        <input type="text" name="nom_employee" id="nom_employee"><br><br>
+
+        <label for="age_min">Âge minimum :</label>
+        <input type="number" name="age_min" id="age_min" min="18" max="99"><br><br>
+
+        <label for="age_max">Âge maximum :</label>
+        <input type="number" name="age_max" id="age_max" min="18" max="99"><br><br>
+
+        <input type="submit" value="Rechercher">
+    </form>
 </body>
 </html>
