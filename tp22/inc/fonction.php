@@ -85,7 +85,7 @@ function avoir_histo_salaire($id_emp){
 function recherche_dept($dept){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM departments WHERE dept_name = '%$dept%' OR dept_name = '$dept%' OR dept_name = '%$dept'";
+    $sql = "SELECT * FROM departments WHERE dept_name LIKE '%$dept%' OR dept_name LIKE '$dept%' OR dept_name LIKE '%$dept'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -100,7 +100,7 @@ function recherche_dept($dept){
 function recherche_emp($emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM employees WHERE first_name = '%$emp%' OR first_name = '$emp%' OR first_name = '%$emp' OR last_name = '%$emp%' OR last_name = '$emp%' OR last_name = '%$emp'";
+    $sql = "SELECT * FROM employees WHERE first_name LIKE '%$emp%' OR first_name LIKE '$emp%' OR first_name LIKE '%$emp' OR last_name LIKE '%$emp%' OR last_name LIKE '$emp%' OR last_name LIKE '%$emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -126,5 +126,4 @@ function recherche_age($age_min , $age_max){
 
     return $retour;
 }
-
 ?>
