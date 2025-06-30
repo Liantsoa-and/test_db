@@ -6,8 +6,10 @@ $nom = $_POST['nom_employee'] ?? '';
 $dep = $_POST['dep'] ?? '';
 $age_min = $_POST['age_min'] ?? '';
 $age_max = $_POST['age_max'] ?? '';
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * 20; 
 
-$employes = recherche_employes($nom, $dep, $age_min, $age_max);
+$employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
 include("../inc/nav.php");
 
 ?>
@@ -38,6 +40,25 @@ include("../inc/nav.php");
                 </tr>
             <?php endforeach; ?>
         </table>
+        <br>
+        <?php if ($page > 1): ?>
+            <form method="get" action="result.php">
+                <input type="hidden" name="nom" value="<?= htmlspecialchars($nom) ?>">
+                <input type="hidden" name="dep" value="<?= htmlspecialchars($dep) ?>">
+                <input type="hidden" name="age_min" value="<?= htmlspecialchars($age_min) ?>">
+                <input type="hidden" name="age_max" value="<?= htmlspecialchars($age_max) ?>">
+                <input type="hidden" name="page" value="<?= $page - 1 ?>">
+                <input type="submit" value="← Précédent">
+            </form>
+        <?php endif; ?>
+        <form action="result.php" method="get">
+            <input type="hidden" name="nom" value="<?= htmlspecialchars($nom) ?>">
+            <input type="hidden" name="dep" value="<?= htmlspecialchars($dep) ?>">
+            <input type="hidden" name="age_min" value="<?= htmlspecialchars($age_min) ?>">
+            <input type="hidden" name="age_max" value="<?= htmlspecialchars($age_max) ?>">
+            <input type="hidden" name="page" value="<?= $page+1 ?>">
+            <input type="submit" value="Page suivante">
+        </form>
     <?php endif; ?>
 </body>
 </html>

@@ -127,7 +127,7 @@ function recherche_age($age_min , $age_max){
     return $retour;
 }
 
-function recherche_employes($nom, $dep, $age_min, $age_max) {
+function recherche_employes($nom, $dep, $age_min, $age_max, $offset = 0) {
     $connexion = connexion();
 
     $conditions = [];
@@ -156,7 +156,7 @@ function recherche_employes($nom, $dep, $age_min, $age_max) {
         $sql .= " WHERE " . implode(" AND ", $conditions);
     }
 
-    $sql .= " LIMIT 20";
+    $sql .= " LIMIT 20 OFFSET " . intval($offset);
 
     $result = mysqli_query($connexion, $sql);
     $retour = [];
