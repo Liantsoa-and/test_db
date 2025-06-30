@@ -2,7 +2,7 @@
 include("../inc/fonction.php");
 session_start();
 
-$departements = getAllDepartments(); 
+$departements = getDepartments(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">

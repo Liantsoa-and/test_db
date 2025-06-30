@@ -168,7 +168,7 @@ function recherche_employes($nom, $dep, $age_min, $age_max) {
     return $retour;
 }
 
-function getAllDepartments() {
+function getDepartments() {
     $connexion = connexion();
 
     $sql = "SELECT dept_no, dept_name FROM departments ORDER BY dept_name";
