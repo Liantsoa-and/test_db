@@ -3,6 +3,7 @@ include("../inc/fonction.php");
 session_start();
 
 $departements = getAllDepartments(); 
+include("../inc/nav.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,9 @@ $departements = getAllDepartments();
     <title>Recherche employé</title>
 </head>
 <body>
-    <h2>Recherche d'employés</h2>
+    <head>
+        <h2>Recherche d'employés</h2>
+    </head>
     <form action="result.php" method="post">
         <label for="dep">Département :</label>
         <select name="dep" id="dep">
