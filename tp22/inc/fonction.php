@@ -126,4 +126,20 @@ function recherche_age($age_min , $age_max){
 
     return $retour;
 }
+
+function avoir_titre($id_emp){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM titles WHERE emp_no = '$id_emp'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    $retour = [];
+    while($donnes = mysqli_fetch_assoc($result)){
+        $retour[] = $donnes;
+    }
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
 ?>
