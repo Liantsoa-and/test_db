@@ -3,7 +3,6 @@ include("../inc/fonction.php");
 session_start();
 
 $departements = getDepartments(); 
-$departements = getAllDepartments(); 
 include("../inc/nav.php");
 ?>
 <!DOCTYPE html>
