@@ -8,6 +8,8 @@ $age_min = $_POST['age_min'] ?? '';
 $age_max = $_POST['age_max'] ?? '';
 
 $employes = recherche_employes($nom, $dep, $age_min, $age_max);
+include("../inc/nav.php");
+
 ?>
 
 <!DOCTYPE html>

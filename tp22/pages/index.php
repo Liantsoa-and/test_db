@@ -30,7 +30,6 @@
                 </tr>
             <?php } ?>
         </table>
-        <a href="formulaire.php">form</a>
     </main>
     <footer></footer>
 </body>
