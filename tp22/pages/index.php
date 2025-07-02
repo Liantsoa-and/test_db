@@ -12,8 +12,10 @@
             <tr>
                 <th>Departement</th>
                 <th>Nom du manageur en cours</th>
+                <th>Nombre d'employees</th>
             </tr>
-            <?php foreach($departements as $departement){ ?> 
+            <?php foreach($departements as $departement){ 
+                $isa = compter_emp($departement['dept_no']); ?> 
                 <tr>
                     <td>
                         <a href="employer.php?id_dep=<?= $departement['dept_no']; ?> ">
@@ -26,6 +28,9 @@
                             $mangeur = avoir_employe($manager['emp_no']); ?>
                             <p><?= $mangeur['first_name']; ?> <?= $mangeur['last_name']; ?></p>
                         <?php } ?>
+                    </td>
+                    <td>
+                        <?= $isa['isa']; ?>
                     </td>
                 </tr>
             <?php } ?>

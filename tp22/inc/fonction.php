@@ -202,4 +202,19 @@ function titre_en_cours($id_emp){
     return $donnes;
 }
 
+ function compter_emp($id_dep){
+    $connexion = connexion();
+
+    /* create or replace view v_emp_dept as 
+    SELECT dept.dept_no,emp.first_name,emp.last_name,emp.birth_date,emp.gender,emp.hire_date,emp.emp_no
+    FROM dept_emp AS dept JOIN employees AS emp ON dept.emp_no = emp.emp_no */
+
+    $sql = "SELECT count(emp_no) as isa FROM dept_emp WHERE dept_no = '$id_dep'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnes;
+ }
+
 ?>
