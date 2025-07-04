@@ -61,3 +61,9 @@ join titles t on e.emp_no = t.emp_no;
 
 /* non - view */
 select max(duration) from v_employee_job_duration;
+
+create or replace view v_employees_dept_femmme as
+select * from v_employees_dept_current where gender = "F";
+
+create or replace view v_employees_dept_homme as
+select * from v_employees_dept_current where gender = "M";

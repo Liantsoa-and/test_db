@@ -21,6 +21,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="../pages/index.php">Liste des Departements</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="../pages/liste.php">Liste des employees par genre</a>
+        </li>
       </ul>
       <form class="d-flex" role="search" action="formulaire.php" >
         <button class="btn btn-outline-success" type="submit">Search</button>

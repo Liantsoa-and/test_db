@@ -34,7 +34,7 @@
                 if($job != null){
                     $titre_longest = $job['title'];
                     $duration = $job['duration'];
-                    echo "<p>Le job le plus long est : $titre_longest, d'une durée de $duration ans.</p>";
+                    echo "<p><h4>Le job le plus long est : $titre_longest, d'une durée de $duration ans.</h4></p>";
                 }
             ?>
 

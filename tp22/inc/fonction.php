@@ -230,4 +230,34 @@ function job_longest_duration($emp_no){
     return $donnees; 
 }
 
+function employe_femme_dept($id_dep){
+     $connexion = connexion();
+
+    $sql = "SELECT * FROM v_employees_dept_femmme WHERE dept_no = '$id_dep'";
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+    
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
+function employe_homme_dept($id_dep){
+     $connexion = connexion();
+
+    $sql = "SELECT * FROM v_employees_dept_homme WHERE dept_no = '$id_dep'";
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+    
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
 ?>
