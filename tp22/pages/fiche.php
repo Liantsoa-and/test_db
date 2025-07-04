@@ -39,7 +39,7 @@
             ?>
 
             <?php if($titres != null){ ?> 
-                <p><h2>Historique d'employe :</h2></p>
+                <p><h2 class="text-center">Historique d'employe :</h2></p>
                 <table border="1">
                     <tr>
                         <th>Titre</th>

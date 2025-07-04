@@ -2,19 +2,15 @@
 <?php
  include("connexion.php"); 
 
-function manager_en_cours($id_dep){
+function manager_en_cours(){
     $connexion = connexion();
 
-   $sql = "SELECT * FROM v_manager_dept_current WHERE dept_no = '$id_dep'";
+   $sql = "SELECT * FROM v_manager_dept_current order by dept_name";
    $result = mysqli_query($connexion, $sql);
 
-   $retour = [];
-    while($donnes = mysqli_fetch_assoc($result)){
-        $retour[] = $donnes;
-    }
     fermer_connexion($connexion);
 
-    return $retour;
+    return $result;
 }
 
 function son_departement($id_emp){
@@ -46,8 +42,7 @@ function tous_departement (){
 function avoir_employes_dep($id_dep){
     $connexion = connexion();
 
-    $sql = "SELECT dept.dept_no,emp.first_name,emp.last_name,emp.birth_date,emp.gender,emp.hire_date,emp.emp_no
-    FROM dept_emp AS dept JOIN employees AS emp ON dept.emp_no = emp.emp_no WHERE dept_no = '$id_dep'";
+    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = '$id_dep'";
     $result = mysqli_query($connexion, $sql);
     $retour = [];
     while($donnes = mysqli_fetch_assoc($result)){
@@ -83,7 +78,7 @@ function avoir_departement($id){
 function avoir_histo_salaire($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp' AND to_date != '9999-01-01'";
+    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp' AND to_date != '9999-01-01' order by from_date asc";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -169,7 +164,7 @@ function getDepartments() {
 function avoir_histo_titre($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM titles WHERE emp_no = '$id_emp'";
+    $sql = "SELECT * FROM v_employees_title WHERE emp_no = '$id_emp' AND to_date='9999-01-01' order by from_date asc";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     $retour = [];
@@ -184,7 +179,7 @@ function avoir_histo_titre($id_emp){
 function salaire_en_cours($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM salaries WHERE emp_no = '$id_emp' AND to_date = '9999-01-01'";
+    $sql = "SELECT * FROM v_employees_salarie_current WHERE emp_no = '$id_emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
@@ -195,7 +190,7 @@ function salaire_en_cours($id_emp){
 function titre_en_cours($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM titles WHERE emp_no = '$id_emp' AND to_date = '9999-01-01'";
+    $sql = "SELECT * FROM v_employees_title_current WHERE emp_no = '$id_emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
@@ -203,21 +198,18 @@ function titre_en_cours($id_emp){
     return $donnes;
 }
 
- function compter_emp($id_dep){
+function compter_emp($id_dep){
     $connexion = connexion();
 
-    /* create or replace view v_emp_dept as SELECT dept.dept_no,emp.* FROM 
-    dept_emp AS dept JOIN employees AS emp ON dept.emp_no = emp.emp_no */
-
-    $sql = "SELECT count(emp_no) as isa FROM dept_emp WHERE dept_no = '$id_dep' AND to_date='9999-01-01'";
+    $sql = "SELECT count(emp_no) as isa FROM v_employees_dept_current WHERE dept_no = '$id_dep'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
 
     return $donnes;
- }
+}
 
- function job_longest_duration($emp_no){
+function job_longest_duration($emp_no){
     $connexion = connexion();
     $sql = "SELECT first_name, last_name, title, duration
             FROM v_employee_job_duration
@@ -236,6 +228,6 @@ function titre_en_cours($id_emp){
     fermer_connexion($connexion);
 
     return $donnees; 
- }
+}
 
 ?>

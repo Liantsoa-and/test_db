@@ -1,7 +1,7 @@
 <?php 
  include("../inc/fonction.php");
  session_start();
- $departements = tous_departement();
+ $departements = manager_en_cours();
  include("../inc/nav.php");
 ?>
     <header>
@@ -23,11 +23,7 @@
                         </a>
                     </td>
                     <td>
-                        <?php $managers = manager_en_cours($departement['dept_no']);
-                        foreach($managers as $manager){
-                            $mangeur = avoir_employe($manager['emp_no']); ?>
-                            <p><?= $mangeur['first_name']; ?> <?= $mangeur['last_name']; ?></p>
-                        <?php } ?>
+                            <p><?= $departement['first_name']; ?> <?= $departement['last_name']; ?></p>
                     </td>
                     <td>
                         <?= $isa['isa']; ?>
