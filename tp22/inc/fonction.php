@@ -217,4 +217,25 @@ function titre_en_cours($id_emp){
     return $donnes;
  }
 
+ function job_longest_duration($emp_no){
+    $connexion = connexion();
+    $sql = "SELECT first_name, last_name, title, duration
+            FROM v_employee_job_duration
+            WHERE emp_no = $emp_no
+            ORDER BY duration DESC
+            LIMIT 1";
+
+    $result = mysqli_query($connexion, $sql);
+
+    if (!$result || mysqli_num_rows($result) === 0) {
+        fermer_connexion($connexion);
+        return null;
+    }
+
+    $donnees = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnees; 
+ }
+
 ?>

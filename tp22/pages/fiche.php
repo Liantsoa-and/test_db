@@ -20,7 +20,7 @@
             <p>Prenom : <?= $employer['first_name']; ?></p>
             <p>Genre : <?= $employer['gender']; ?></p>
             <p>Date de naissance : <?= $employer['birth_date']; ?></p>
-            <p>Date d'emboche : <?= $employer['hire_date']; ?></p>
+            <p>Date d'embauche : <?= $employer['hire_date']; ?></p>
             <p>Departement : <?= $departement['dept_name']; ?></p>
             <?php if($salaire_actu != null){ ?>
                 <p>Salaire actuel : <?= $salaire_actu['salary']; ?>$</p>
@@ -28,6 +28,15 @@
             <?php if($titre_actu != null){ ?>
                 <p>Titre actuel : <?= $titre_actu['title']; ?></p>
             <?php } ?>
+
+            <?php
+                $job = job_longest_duration($id_emp);
+                if($job != null){
+                    $titre_longest = $job['title'];
+                    $duration = $job['duration'];
+                    echo "<p>Le job le plus long est : $titre_longest, d'une durée de $duration ans.</p>";
+                }
+            ?>
 
             <?php if($titres != null){ ?> 
                 <p><h2>Historique d'employe :</h2></p>

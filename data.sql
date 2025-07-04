@@ -51,3 +51,13 @@ on e.emp_no = d.emp_no
 join departments as dept
 on d.dept_no = dept.dept_no
 where d.to_date = '9999-01-01';
+
+/* ok */
+create or replace view v_employee_job_duration as 
+select e.*, t.title, t.from_date, t.to_date, 
+timestampdiff(year, t.from_date, if(t.to_date = '9999-01-01', now(), t.to_date)) AS duration
+from employees e
+join titles t on e.emp_no = t.emp_no;
+
+/* non - view */
+select max(duration) from v_employee_job_duration;
