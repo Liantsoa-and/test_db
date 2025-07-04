@@ -5,7 +5,7 @@
 function manager_en_cours($id_dep){
     $connexion = connexion();
 
-   $sql = "SELECT * FROM dept_manager WHERE to_date = '9999-01-01' AND dept_no = '$id_dep'";
+   $sql = "SELECT * FROM v_manager_dept_current WHERE dept_no = '$id_dep'";
    $result = mysqli_query($connexion, $sql);
 
    $retour = [];
