@@ -3,8 +3,7 @@
  session_start();
  $id_emp = $_GET['emp'] ?? null;
  $id_dept = $_GET['dept'];
- echo $id_dept;
- $manager = manager_en_cours_dept($id_dept);
+ $manager = manager_en_cours();
  var_dump($manager);
 ?>
 <!DOCTYPE html>

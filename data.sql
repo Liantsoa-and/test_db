@@ -83,3 +83,7 @@ create or replace view v_emp_title_salari_current as
 select et.*,es.salary from v_employees_title_current as et join 
 v_employees_salarie_current as es on 
 es.emp_no = et.emp_no;
+
+/* create or replace view v_emp_dept_manager as   
+select dm.*, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date from dept_manager as dm 
+join employees as e on dm.emp_no = e.emp_no; */

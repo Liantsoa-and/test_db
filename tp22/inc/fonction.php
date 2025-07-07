@@ -430,4 +430,5 @@ function manager_en_cours_dept($dept_no){
     return $result;
 }
 
+
 ?>
