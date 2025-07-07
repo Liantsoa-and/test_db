@@ -16,7 +16,7 @@ function manager_en_cours(){
 function son_departement($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT d.dept_name FROM dept_emp as dept_e join departments as d on dept_e.dept_no = d.dept_no WHERE emp_no = '$id_emp'";
+    $sql = "SELECT d.* FROM dept_emp as dept_e join departments as d on dept_e.dept_no = d.dept_no WHERE emp_no = '$id_emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
@@ -413,6 +413,21 @@ function salaire_moyenne_title($title) {
     fermer_connexion($connexion);
     
     return $row ? (float)$row['moyenne'] : 0;
+}
+
+function je_deviens_manager($emp_no){
+    $connexion = connexion();
+}
+
+function manager_en_cours_dept($dept_no){
+    $connexion = connexion();
+
+   $sql = "SELECT * FROM v_manager_dept_current where dept_no = '$dept_no'";
+   $result = mysqli_query($connexion, $sql);
+
+    fermer_connexion($connexion);
+
+    return $result;
 }
 
 ?>

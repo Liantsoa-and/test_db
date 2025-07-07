@@ -37,6 +37,7 @@
                     <p>Le job le plus long est : <strong><?= $titre_longest; ?></strong>, d'une durée de <strong> <?= $duration; ?> ans</strong></p>
                 <?php }
             ?>
+            <a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>">Devenir manager</a>
 
             <?php if($titres != null){ ?> 
                 <p><h2 class="text-center">Historique d'employe :</h2></p>
