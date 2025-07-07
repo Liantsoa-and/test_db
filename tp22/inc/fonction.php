@@ -39,19 +39,6 @@ function tous_departement (){
     return $retour;
 } 
 
-/*function avoir_employes_dep($id_dep, $page){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = '$id_dep' LIMIT 20 OFFSET " . intval($page);
-    $result = mysqli_query($connexion, $sql);
-    $retour = [];
-    while($donnes = mysqli_fetch_assoc($result)){
-        $retour[] = $donnes;
-    }
-    fermer_connexion($connexion);
-
-    return $retour;
-}*/
 function avoir_employes_dep($id_dep, $page) {
     $connexion = connexion();
     
@@ -431,4 +418,94 @@ function manager_en_cours_dept($dept_no){
 }
 
 
+function je_deviens_manager($emp_no){
+    $connexion = connexion();
+}
+
+function manager_en_cours_dept($dept_no){
+    $connexion = connexion();
+
+   $sql = "SELECT * FROM v_manager_dept_current where dept_no = '$dept_no'";
+   $result = mysqli_query($connexion, $sql);
+
+    fermer_connexion($connexion);
+
+    return $result;
+}
+
+
+/* function changer_dept($id_dep,$id_emp,$date){
+    $connexion = connexion();
+
+    //changer to_date de son ancien departement 
+    $dep = son_departement($id_emp);
+    $id_de = $dep['dept_no'];
+    $sql1 = "update table dept_emp set to_date='$date' where emp_no='$id_emp' and dept_no='$id_de'";
+    $result1 = mysql_query($connexion,$sql1);
+
+    // entrer dans son nouvel departement
+    $sql = "INSERT INTO dept_emp VALUES ('$id_emp','$id_dep','$date','9999-01-01')";
+    $result = mysql_query($connexion,$sql);
+
+    if($result){
+        return true;
+    } else{
+        return false;
+    }
+    fermer_connexion($connexion);
+}
+ */
+function changer_dept($id_dep, $id_emp, $date) {
+    // Validation des paramètres
+    if (!is_numeric($id_emp) || !is_numeric($id_dep) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        return false;
+    }
+
+    try {
+        // Connexion à la base de données (PDO)
+        $connexion = connexion(); // Assurez-vous que cette fonction retourne une instance PDO
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Démarrer une transaction
+        $connexion->beginTransaction();
+
+        // Récupérer l'ancien département
+        $dep = son_departement($id_emp); // Assurez-vous que cette fonction retourne un tableau valide
+        if (!$dep || !isset($dep['dept_no'])) {
+            throw new Exception("Impossible de récupérer l'ancien département.");
+        }
+        $id_de = $dep['dept_no'];
+
+        // Mettre à jour to_date de l'ancien département
+        $sql1 = "UPDATE dept_emp SET to_date = :date WHERE emp_no = :emp_no AND dept_no = :dept_no";
+        $stmt1 = $connexion->prepare($sql1);
+        $stmt1->execute([
+            ':date' => $date,
+            ':emp_no' => $id_emp,
+            ':dept_no' => $id_de
+        ]);
+
+        // Insérer dans le nouveau département
+        $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES (:emp_no, :dept_no, :from_date, '9999-01-01')";
+        $stmt2 = $connexion->prepare($sql2);
+        $stmt2->execute([
+            ':emp_no' => $id_emp,
+            ':dept_no' => $id_dep,
+            ':from_date' => $date
+        ]);
+
+        // Valider la transaction
+        $connexion->commit();
+        return true;
+    } catch (Exception $e) {
+        // Annuler la transaction en cas d'erreur
+        $connexion->rollBack();
+        // Log l'erreur si nécessaire (par exemple, dans un fichier de log)
+        error_log("Erreur dans changer_dept: " . $e->getMessage());
+        return false;
+    } finally {
+        // Fermer la connexion
+        $connexion = null;
+    }
+}
 ?>

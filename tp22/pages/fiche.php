@@ -15,6 +15,10 @@
         <h1>Fiche de l'employee: <?= $employer['last_name']; ?></h1>
     </header>
     <main>
+        <?php if(isset($_SESSION['mes'])){
+            echo $_SESSION['mes'];
+            unset($_SESSION['mes']);
+        } ?>
         <div class="fiche">
             <p><strong>Nom</strong>:<?= $employer['last_name']; ?></p>
             <p><strong>Prenom</strong>: <?= $employer['first_name']; ?></p>
@@ -37,6 +41,7 @@
                     <p>Le job le plus long est : <strong><?= $titre_longest; ?></strong>, d'une durée de <strong> <?= $duration; ?> ans</strong></p>
                 <?php }
             ?>
+            <p><a href="changer_dept.php?id_emp=<?= $id_emp; ?>"><button>Changer de departement</button></a></p>
             <a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>">Devenir manager</a>
 
             <?php if($titres != null){ ?> 
