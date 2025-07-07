@@ -4,6 +4,12 @@ session_start();
 $id_emp = $_GET['id_emp'];
 $employer = avoir_employe($id_emp);
 $departements = tous_departement();
+
+$connexion = connexion();
+$sql = "select current_date() as date";
+$d = mysqli_query($connexion,$sql);
+$dd = mysqli_fetch_assoc($d);
+$today = $dd['date'];
 include("../inc/nav.php");
 ?>
     <head>
@@ -18,7 +24,7 @@ include("../inc/nav.php");
                         <option value="<?= $departement['dept_no']; ?>"><?= $departement['dept_name']; ?></option>
                     <?php } ?>
                 </select></p>
-                <p>Date debut : <input type="date" name="date" id="" required></p>
+                <p>Date debut : <input type="date" name="date" id="" min="<?= $today;?>" required></p>
                 <input type="hidden" name="id_emp" value="<?= $id_emp; ?>">
                 <p><input type="submit" value="Valider"></p>
             </form>
