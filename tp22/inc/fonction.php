@@ -417,23 +417,6 @@ function manager_en_cours_dept($dept_no){
     return $result;
 }
 
-
-function je_deviens_manager($emp_no){
-    $connexion = connexion();
-}
-
-function manager_en_cours_dept($dept_no){
-    $connexion = connexion();
-
-   $sql = "SELECT * FROM v_manager_dept_current where dept_no = '$dept_no'";
-   $result = mysqli_query($connexion, $sql);
-
-    fermer_connexion($connexion);
-
-    return $result;
-}
-
-
 /* function changer_dept($id_dep,$id_emp,$date){
     $connexion = connexion();
 
@@ -508,4 +491,5 @@ function changer_dept($id_dep, $id_emp, $date) {
         $connexion = null;
     }
 }
+
 ?>
