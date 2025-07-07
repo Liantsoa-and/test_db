@@ -39,10 +39,10 @@ function tous_departement (){
     return $retour;
 } 
 
-function avoir_employes_dep($id_dep){
+/*function avoir_employes_dep($id_dep, $page){
     $connexion = connexion();
 
-    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = '$id_dep'";
+    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = '$id_dep' LIMIT 20 OFFSET " . intval($page);
     $result = mysqli_query($connexion, $sql);
     $retour = [];
     while($donnes = mysqli_fetch_assoc($result)){
@@ -50,6 +50,42 @@ function avoir_employes_dep($id_dep){
     }
     fermer_connexion($connexion);
 
+    return $retour;
+}*/
+function avoir_employes_dep($id_dep, $page) {
+    $connexion = connexion();
+    
+    $page = max(1, (int)$page);
+    $limit = 20;
+    $offset = ($page - 1) * $limit;
+
+    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = ? LIMIT ? OFFSET ?";
+    $stmt = mysqli_prepare($connexion, $sql);
+    
+    if ($stmt === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur de préparation de la requête'];
+    }
+    
+    mysqli_stmt_bind_param($stmt, "sii", $id_dep, $limit, $offset);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    if ($result === false) {
+        mysqli_stmt_close($stmt);
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur lors de l\'exécution de la requête'];
+    }
+    
+    $retour = [];
+    while ($donnees = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnees;
+    }
+    
+    mysqli_stmt_close($stmt);
+    mysqli_free_result($result);
+    fermer_connexion($connexion);
+    
     return $retour;
 }
 

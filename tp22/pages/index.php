@@ -18,7 +18,7 @@
                 $isa = compter_emp($departement['dept_no']); ?> 
                 <tr>
                     <td>
-                        <a href="employer.php?id_dep=<?= $departement['dept_no']; ?> ">
+                        <a href="employer.php?id_dep=<?= $departement['dept_no']; ?>&page=1">
                             <p><?= $departement['dept_name']; ?></p>
                         </a>
                     </td>

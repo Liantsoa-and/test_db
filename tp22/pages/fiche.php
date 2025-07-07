@@ -16,26 +16,26 @@
     </header>
     <main>
         <div class="fiche">
-            <p>Nom :<?= $employer['last_name']; ?></p>
-            <p>Prenom : <?= $employer['first_name']; ?></p>
-            <p>Genre : <?= $employer['gender']; ?></p>
-            <p>Date de naissance : <?= $employer['birth_date']; ?></p>
-            <p>Date d'embauche : <?= $employer['hire_date']; ?></p>
-            <p>Departement : <?= $departement['dept_name']; ?></p>
+            <p><strong>Nom</strong>:<?= $employer['last_name']; ?></p>
+            <p><strong>Prenom</strong>: <?= $employer['first_name']; ?></p>
+            <p><strong>Genre</strong>: <?= $employer['gender']; ?></p>
+            <p><strong>Date de naissance</strong>: <?= $employer['birth_date']; ?></p>
+            <p><strong>Date d'embauche</strong>: <?= $employer['hire_date']; ?></p>
+            <p><strong>Departement</strong>: <?= $departement['dept_name']; ?></p>
             <?php if($salaire_actu != null){ ?>
-                <p>Salaire actuel : <?= $salaire_actu['salary']; ?>$</p>
+                <p><strong>Salaire actuel</strong> : <?= $salaire_actu['salary']; ?>$</p>
             <?php } ?>
             <?php if($titre_actu != null){ ?>
-                <p>Titre actuel : <?= $titre_actu['title']; ?></p>
+                <p><strong>Titre actuel</strong>: <?= $titre_actu['title']; ?></p>
             <?php } ?>
 
             <?php
                 $job = job_longest_duration($id_emp);
                 if($job != null){
                     $titre_longest = $job['title'];
-                    $duration = $job['duration'];
-                    echo "<p><h4>Le job le plus long est : $titre_longest, d'une durée de $duration ans.</h4></p>";
-                }
+                    $duration = $job['duration']; ?>
+                    <p>Le job le plus long est : <strong><?= $titre_longest; ?></strong>, d'une durée de <strong> <?= $duration; ?> ans</strong></p>
+                <?php }
             ?>
 
             <?php if($titres != null){ ?> 
