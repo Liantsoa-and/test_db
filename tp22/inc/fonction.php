@@ -260,49 +260,6 @@ function employe_homme_dept($id_dep){
     return $retour;
 }
 
-/*function employe_femme_title($title){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM v_employees_title_current_femme where title='$title'";
-    $result = mysqli_query($connexion, $sql);
-    $retour = [];
-    while ($donnes = mysqli_fetch_assoc($result)) {
-        $retour[] = $donnes;
-    }
-    
-    fermer_connexion($connexion);
-
-    return $retour;
-}
-function employe_homme_title($title){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM v_employees_title_current_homme where title='$title'";
-    $result = mysqli_query($connexion, $sql);
-    $retour = [];
-    while ($donnes = mysqli_fetch_assoc($result)) {
-        $retour[] = $donnes;
-    }
-    
-    fermer_connexion($connexion);
-
-    return $retour;
-}
-
-function avoir_dif_titre(){
-    $connexion = connexion();
-
-    $sql = "SELECT distinct title FROM titles";
-    $result = mysqli_query($connexion, $sql);
-    $retour = [];
-    while ($donnes = mysqli_fetch_assoc($result)) {
-        $retour[] = $donnes;
-    }
-    
-    fermer_connexion($connexion);
-
-    return $retour;
-}*/
 function employe_femme_title($title) {
     $connexion = connexion();
     
@@ -376,6 +333,50 @@ function avoir_dif_titre() {
     fermer_connexion($connexion);
     
     return $retour;
+}
+
+function salaire_moyenne_dept($id_dep) {
+    $connexion = connexion();
+    
+    $sql = "SELECT AVG(salary) AS moyenne FROM v_emp_dept_salari_current WHERE dept_no = ?";
+    $stmt = mysqli_prepare($connexion, $sql);
+    
+    if ($stmt === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur de préparation de la requête'];
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $id_dep);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $row = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    fermer_connexion($connexion);
+    
+    return $row ? (float)$row['moyenne'] : 0;
+}
+
+function salaire_moyenne_title($title) {
+    $connexion = connexion();
+    
+    $sql = "SELECT AVG(salary) AS moyenne FROM v_emp_title_salari_current WHERE title = ?";
+    $stmt = mysqli_prepare($connexion, $sql);
+    
+    if ($stmt === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur de préparation de la requête'];
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $title);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $row = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    fermer_connexion($connexion);
+    
+    return $row ? (float)$row['moyenne'] : 0;
 }
 
 ?>

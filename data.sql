@@ -74,3 +74,12 @@ select * from v_employees_title_current where gender = "F";
 create or replace view v_employees_title_current_homme as 
 select * from v_employees_title_current where gender = "M";
 
+create or replace view v_emp_dept_salari_current as 
+select ed.*,es.salary from v_employees_salarie_current as es join 
+v_employees_dept_current as ed on 
+ed.emp_no = es.emp_no;
+
+create or replace view v_emp_title_salari_current as 
+select et.*,es.salary from v_employees_title_current as et join 
+v_employees_salarie_current as es on 
+es.emp_no = et.emp_no;
