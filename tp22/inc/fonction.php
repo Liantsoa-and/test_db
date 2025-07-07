@@ -39,19 +39,6 @@ function tous_departement (){
     return $retour;
 } 
 
-/*function avoir_employes_dep($id_dep, $page){
-    $connexion = connexion();
-
-    $sql = "SELECT * FROM v_employees_dept_current WHERE dept_no = '$id_dep' LIMIT 20 OFFSET " . intval($page);
-    $result = mysqli_query($connexion, $sql);
-    $retour = [];
-    while($donnes = mysqli_fetch_assoc($result)){
-        $retour[] = $donnes;
-    }
-    fermer_connexion($connexion);
-
-    return $retour;
-}*/
 function avoir_employes_dep($id_dep, $page) {
     $connexion = connexion();
     
@@ -413,6 +400,20 @@ function salaire_moyenne_title($title) {
     fermer_connexion($connexion);
     
     return $row ? (float)$row['moyenne'] : 0;
+}
+
+function changer_dept($id_dep,$id_emp,$date){
+    $connexion = connexion();
+
+    $sql = "update table dept_emp set dept_no='$id_dep' and from_date='$date' where emp_no='$id_emp'";
+    $result = mysql_query($connexion,$sql);
+
+    if($result){
+        return true;
+    } else{
+        return false;
+    }
+    fermer_connexion($connexion);
 }
 
 ?>

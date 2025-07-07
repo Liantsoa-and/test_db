@@ -22,8 +22,16 @@ employes de ce departement.
     *[ok] appel a la fonction dans fiche.php
     *[ok] afficher les informations
 
-[ok]- Rajouter l'historique du salaire et de l'emploi occupe dans la fiche
+[ok]- Rajouter l'historique du salaire et de l'emploi occuper par la personne dans la fiche
 
-[ok]- Créer un formulaire de recherche
+[ok]- Créer un formulaire de recherche a requete multiple
 
 [ok]- creer des view
+
+[] - ajouter un bouton dans fiche d'employer (changer de departement)
+    [] dirige vers changer_dept.php pour afficher un formulaire
+        [] liste deroulante des departements
+        [] input date
+    [ok] creer une fonction update le nouveau departement de cet employer
+    [] appel a cette fonction
+    [] 
