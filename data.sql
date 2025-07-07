@@ -67,3 +67,10 @@ select * from v_employees_dept_current where gender = "F";
 
 create or replace view v_employees_dept_homme as
 select * from v_employees_dept_current where gender = "M";
+
+create or replace view v_employees_title_current_femme as 
+select * from v_employees_title_current where gender = "F";
+
+create or replace view v_employees_title_current_homme as 
+select * from v_employees_title_current where gender = "M";
+

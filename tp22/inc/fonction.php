@@ -246,7 +246,7 @@ function employe_femme_dept($id_dep){
 }
 
 function employe_homme_dept($id_dep){
-     $connexion = connexion();
+    $connexion = connexion();
 
     $sql = "SELECT * FROM v_employees_dept_homme WHERE dept_no = '$id_dep'";
     $result = mysqli_query($connexion, $sql);
@@ -257,6 +257,124 @@ function employe_homme_dept($id_dep){
     
     fermer_connexion($connexion);
 
+    return $retour;
+}
+
+/*function employe_femme_title($title){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM v_employees_title_current_femme where title='$title'";
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+    
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+function employe_homme_title($title){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM v_employees_title_current_homme where title='$title'";
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+    
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
+function avoir_dif_titre(){
+    $connexion = connexion();
+
+    $sql = "SELECT distinct title FROM titles";
+    $result = mysqli_query($connexion, $sql);
+    $retour = [];
+    while ($donnes = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnes;
+    }
+    
+    fermer_connexion($connexion);
+
+    return $retour;
+}*/
+function employe_femme_title($title) {
+    $connexion = connexion();
+    
+    // Utilisation d'une requête préparée
+    $sql = "SELECT * FROM v_employees_title_current_femme WHERE title = ?";
+    $stmt = mysqli_prepare($connexion, $sql);
+    
+    if ($stmt === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur de préparation de la requête'];
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $title);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $retour = [];
+    while ($donnees = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnees;
+    }
+    
+    mysqli_stmt_close($stmt);
+    fermer_connexion($connexion);
+    
+    return $retour;
+}
+
+function employe_homme_title($title) {
+    $connexion = connexion();
+    
+    $sql = "SELECT * FROM v_employees_title_current_homme WHERE title = ?";
+    $stmt = mysqli_prepare($connexion, $sql);
+    
+    if ($stmt === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur de préparation de la requête'];
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $title);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $retour = [];
+    while ($donnees = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnees;
+    }
+    
+    mysqli_stmt_close($stmt);
+    fermer_connexion($connexion);
+    
+    return $retour;
+}
+
+function avoir_dif_titre() {
+    $connexion = connexion();
+    
+    $sql = "SELECT DISTINCT title FROM titles";
+    $result = mysqli_query($connexion, $sql);
+    
+    if ($result === false) {
+        fermer_connexion($connexion);
+        return ['error' => 'Erreur lors de l\'exécution de la requête'];
+    }
+    
+    $retour = [];
+    while ($donnees = mysqli_fetch_assoc($result)) {
+        $retour[] = $donnees['title']; 
+    }
+    
+    mysqli_free_result($result);
+    fermer_connexion($connexion);
+    
     return $retour;
 }
 
