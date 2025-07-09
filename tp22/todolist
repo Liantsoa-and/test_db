@@ -28,10 +28,15 @@ employes de ce departement.
 
 [ok]- creer des view
 
-[] - ajouter un bouton dans fiche d'employer (changer de departement)
-    [] dirige vers changer_dept.php pour afficher un formulaire
-        [] liste deroulante des departements
-        [] input date
+[ok] - ajouter un bouton dans fiche d'employer (changer de departement)
+    [ok] dirige vers changer_dept.php pour afficher un formulaire
+        [ok] liste deroulante des departements
+        [ok] input date (minimum current_date)
     [ok] creer une fonction update le nouveau departement de cet employer
-    [] appel a cette fonction
-    [] 
+    [ok] appel a cette fonction
+
+[ok] - ajouter un bouton dans fiche d'employer (devenir manager de son departement)
+    [ok] dirige vers devenir.php pour afficher un formulaire
+        [ok] input date (minimum current_date)
+    [ok] creer une fonction update le nouveau departement de cet employer
+    [ok] appel a cette fonction

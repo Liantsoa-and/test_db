@@ -1,6 +1,4 @@
 <?php 
-include("../inc/fonction.php");
-session_start();
 $id_emp = $_GET['id_emp'];
 $employer = avoir_employe($id_emp);
 $departements = tous_departement();
@@ -10,7 +8,6 @@ $sql = "select current_date() as date";
 $d = mysqli_query($connexion,$sql);
 $dd = mysqli_fetch_assoc($d);
 $today = $dd['date'];
-include("../inc/nav.php");
 ?>
     <header>
         <h1 class="text-center">Changer de departement:</h1>
@@ -30,5 +27,3 @@ include("../inc/nav.php");
             </form>
         </div>
     </main>
-</body>
-</html>

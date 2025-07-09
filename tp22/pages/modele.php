@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departements</title>
+    <title>Departement</title>
     <link rel="stylesheet" href="../assets/style.css">
     <link
     href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -19,15 +18,34 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../pages/index.php"><strong> Departements</strong></a>
+          <a class="nav-link active" aria-current="page" href="modele.php?pnum=index.php"><strong> Departements</strong></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../pages/liste.php"><strong> Employees par genre</strong></a>
+          <a class="nav-link active" aria-current="page" href="modele.php?pnum=liste.php"><strong> Employees par genre</strong></a>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="formulaire.php" >
+      <form class="d-flex" role="search" action="formulaire.php?" >
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
   </div>
 </nav>
+
+<body>
+    <?php 
+    include("../inc/fonction.php");
+    session_start();
+
+    if(isset($_SESSION['pnum'])){
+        $nump = $_SESSION['pnum'];
+        unset($_SESSION['pnum']);
+        include("$nump");
+    } else if(isset($_GET['pnum'])){
+        $nump = $_GET['pnum'];
+        include("$nump");
+    } else{
+        include("index.php");
+    }
+    ?>
+</body>
+</html>

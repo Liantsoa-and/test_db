@@ -1,8 +1,6 @@
 <?php
- include("../inc/fonction.php");
  $departements = tous_departement();
  $titres = avoir_dif_titre();
- include("../inc/nav.php");
 ?>
 
 <header>
@@ -26,7 +24,7 @@
             ?>
         
             <tr>
-                <td><?= $departement['dept_name']; ?></td>
+                <td><a href="modele.php?pnum=employer.php&page=1&id_dept=<?= $departement['dept_no']; ?>"><?= $departement['dept_name']; ?></a></td>
                 <td><?= $isa_femme; ?></td>
                 <td><?= $isa_homme; ?></td>
                 <td><?= $moyenne_dept; ?>$</td>

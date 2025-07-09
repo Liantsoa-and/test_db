@@ -1,14 +1,10 @@
 <?php 
- include("../inc/fonction.php");
- session_start();
  $id_dep = $_GET['id_dep'];
  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
  $offset = ($page - 1) * 20; 
  $id_emps = avoir_employes_dep($id_dep,$offset);
  $departement = avoir_departement($id_dep);
  unset($_SESSION['id_emp']);
-
- include("../inc/nav.php");
 
 ?>
     <style>
@@ -24,15 +20,17 @@
     <main>
         <div class="pagination">
             <?php if ($page > 1): ?>
-                <form method="get" action="employer.php">
+                <form method="get" action="modele.php">
                     <input type="hidden" name="id_dep" value="<?= ($id_dep) ?>">
                     <input type="hidden" name="page" value="<?= $page - 1 ?>">
+                    <input type="hidden" name="pnum" value="employer.php">
                     <input type="submit" value="← Précédent">
                 </form>
             <?php endif; ?>
-                <form action="employer.php" method="get">
+                <form action="modele.php" method="get">
                     <input type="hidden" name="id_dep" value="<?= htmlspecialchars($id_dep) ?>">
                     <input type="hidden" name="page" value="<?= $page+1 ?>">
+                    <input type="hidden" name="pnum" value="employer.php">
                     <input type="submit" value="Page suivante">
                 </form>
         </div>
@@ -45,7 +43,7 @@
             <?php foreach($id_emps as $employer){ ?> 
                 <tr>
                     <td>
-                        <a href="fiche.php?id_emp=<?= $employer['emp_no'] ;?>">
+                        <a href="modele.php?id_emp=<?= $employer['emp_no'] ;?>&pnum=fiche.php">
                             <?= $employer['last_name']; ?> 
                         </a>
                     </td>
@@ -59,5 +57,3 @@
             <?php } ?>
         </table>
     </main>
-</body>
-</html>

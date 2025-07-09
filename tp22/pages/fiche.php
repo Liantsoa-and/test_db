@@ -1,6 +1,5 @@
 <?php 
- include("../inc/fonction.php");
- session_start();
+
  if(isset($_SESSION['id_emp'])){
     $_GET['id_emp'] = $_SESSION['id_emp'];
  }
@@ -11,7 +10,6 @@
  $departement = son_departement($id_emp);
  $salaire_actu = salaire_en_cours($id_emp);
  $titre_actu = titre_en_cours($id_emp);
- include("../inc/nav.php");
 
 ?>
     <header>
@@ -48,8 +46,8 @@
                     <p>Le job le plus long est : <strong><?= $titre_longest; ?></strong>, d'une durée de <strong> <?= $duration; ?> ans</strong></p>
                 <?php }
             ?>
-            <p><a href="changer_dept.php?id_emp=<?= $id_emp; ?>"><button>Changer de departement</button></a></p>
-            <p><a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>"><button>Devenir manager</button></a></p>
+            <p><a href="modele.php?id_emp=<?= $id_emp; ?>&pnum=changer_dept.php"><button>Changer de departement</button></a></p>
+            <p><a href="modele.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>&pnum=devenir.php"><button>Devenir manager</button></a></p>
 
             <?php if($titres != null){ ?> 
                 <p><h2 class="text-center">Historique d'employe :</h2></p>
@@ -88,5 +86,3 @@
             <?php } ?>
         </div>
     </main>
-</body>
-</html>

@@ -1,8 +1,5 @@
 <?php 
- include("../inc/fonction.php");
- session_start();
  $departements = manager_en_cours();
- include("../inc/nav.php");
 ?>
     <header>
         <h1>Liste de tous les departements :</h1>
@@ -18,7 +15,7 @@
                 $isa = compter_emp($departement['dept_no']); ?> 
                 <tr>
                     <td>
-                        <a href="employer.php?id_dep=<?= $departement['dept_no']; ?>&page=1">
+                        <a href="modele.php?id_dep=<?= $departement['dept_no']; ?>&page=1&pnum=employer.php">
                             <p><?= $departement['dept_name']; ?></p>
                         </a>
                     </td>
@@ -32,5 +29,3 @@
             <?php } ?>
         </table>
     </main>
-</body>
-</html>
