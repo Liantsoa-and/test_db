@@ -1,4 +1,3 @@
-
 <?php
  include("connexion.php"); 
 
@@ -412,65 +411,79 @@ function manager_en_cours_dept($id_dept){
 
 }
 
-function je_deviens_manager($emp_no,$id_dept,$date){
+function je_deviens_manager($emp_no, $id_dept, $date) {
     $connexion = connexion();
-
-    $ancien_manager = manager_en_cours_dept($id_dept);
-    $id_ancien = $ancien_manager['emp_no'];
-
-    $sql1 = "update dept_manager set to_date='$date' where emp_no='$emp_no' and dept_no='$id_dept'";
-    $result1 = mysqli_query($connexion,$sql1);
-
-    $sql3 = "update titles set to_date='$date' where emp_no='$emp_no'";
-    $result3 = mysqli_query($connexion,$sql3);
-
-    if($result1){
-        $sql2 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES ('$id_emp', '$id_dept, '$date', '9999-01-01')";
-        $result2 = mysqli_query($connexion,$sql2);
-
-        $title = "Manager";
-        $sql4 = "INSERT INTO title (emp_no, title, from_date, to_date) VALUES ('$id_emp', '$title', '$date', '9999-01-01')";
-        $result4 = mysqli_query($connexion,$sql4);
-
-        fermer_connexion($connexion);
-        if($result2){
-            return true;
-        } else{
-            return false;
-        }
-
-    } else{
-        fermer_connexion($connexion);
+    if (!$connexion) {
         return false;
     }
+
+    $ancien_manager = manager_en_cours_dept($id_dept);
+    $id_ancien = $ancien_manager ? mysqli_fetch_assoc($ancien_manager)['emp_no'] : null;
+
+    $sql1 = "UPDATE dept_manager SET to_date = ? WHERE emp_no = ? AND dept_no = ? AND to_date = '9999-01-01'";
+    $stmt1 = mysqli_prepare($connexion, $sql1);
+    mysqli_stmt_bind_param($stmt1, "sis", $date, $id_ancien, $id_dept);
+    $result1 = mysqli_stmt_execute($stmt1);
+    mysqli_stmt_close($stmt1);
+
+    $sql3 = "UPDATE titles SET to_date = ? WHERE emp_no = ? AND to_date = '9999-01-01'";
+    $stmt3 = mysqli_prepare($connexion, $sql3);
+    mysqli_stmt_bind_param($stmt3, "si", $date, $emp_no);
+    $result3 = mysqli_stmt_execute($stmt3);
+    mysqli_stmt_close($stmt3);
+
+    if ($result1) {
+        $sql2 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
+        $stmt2 = mysqli_prepare($connexion, $sql2);
+        mysqli_stmt_bind_param($stmt2, "iss", $emp_no, $id_dept, $date);
+        $result2 = mysqli_stmt_execute($stmt2);
+        mysqli_stmt_close($stmt2);
+
+        $title = "Manager";
+        $sql4 = "INSERT INTO titles (emp_no, title, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
+        $stmt4 = mysqli_prepare($connexion, $sql4);
+        mysqli_stmt_bind_param($stmt4, "iss", $emp_no, $title, $date);
+        $result4 = mysqli_stmt_execute($stmt4);
+        mysqli_stmt_close($stmt4);
+
+        fermer_connexion($connexion);
+        return $result2 && $result4;
+    }
+
+    fermer_connexion($connexion);
+    return false;
 }
 
 function changer_dept($id_dept, $id_emp, $date) {
-        $connexion = connexion(); 
+    $connexion = connexion();
+    if (!$connexion) {
+        return false;
+    }
 
-        $dep = son_departement($id_emp); 
-        $id_dep = $dep['dept_no'];
+    $dep = son_departement($id_emp);
+    $id_dep = $dep ? $dep['dept_no'] : null;
 
-        // Mettre à jour to_date de l'ancien departement
-        $sql1 = "UPDATE dept_emp SET to_date = '$date' WHERE emp_no = '$id_emp' AND dept_no = '$id_dep'";
-        $result1 = mysqli_query($connexion,$sql1);
+    if ($id_dep) {
+        $sql1 = "UPDATE dept_emp SET to_date = ? WHERE emp_no = ? AND dept_no = ? AND to_date = '9999-01-01'";
+        $stmt1 = mysqli_prepare($connexion, $sql1);
+        mysqli_stmt_bind_param($stmt1, "sis", $date, $id_emp, $id_dep);
+        $result1 = mysqli_stmt_execute($stmt1);
+        mysqli_stmt_close($stmt1);
 
-        if($result1){
-            // Inserer dans le nouveau departement
-            $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES ('$id_emp', '$id_dept, '$date', '9999-01-01')";
-            $result2 = mysqli_query($connexion,$sql2);
+        if ($result1) {
+            $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
+            $stmt2 = mysqli_prepare($connexion, $sql2);
+            mysqli_stmt_bind_param($stmt2, "iss", $id_emp, $id_dept, $date);
+            $result2 = mysqli_stmt_execute($stmt2);
+            mysqli_stmt_close($stmt2);
 
             fermer_connexion($connexion);
-            if($result2){
-                return true;
-            } else{
-                return false;
-            }
-        } else{
-            fermer_connexion($connexion);
-            return false;
+            return $result2;
         }
+    }
 
+    fermer_connexion($connexion);
+    return false;
 }
 
 ?>

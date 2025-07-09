@@ -29,11 +29,11 @@
    unset($_SESSION['id_emp']);
     
     if($changer_dep = je_deviens_manager($id_emp,$id_dept,$date)){
-      $_SESSION['mes'] = "Changement de departement reussi !!";
+      $_SESSION['mes'] = "Vous avez reussi a devenir manager de !!";
       $_SESSION['id_emp'] = $id_emp;
       header("Location:fiche.php");
    } else {
-      $_SESSION['mes'] = "Impossible de changer de departement !!";
+      $_SESSION['mes'] = "Impossible de devenir manager !!";
       $_SESSION['id_emp'] = $id_emp;
       header("Location:fiche.php");
    }

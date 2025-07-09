@@ -111,3 +111,6 @@ footer {
     margin-top: 3rem;
 }
 
+.error p{
+    color: red;
+}

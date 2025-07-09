@@ -18,10 +18,14 @@
         <h1>Fiche de l'employee: <?= $employer['last_name']; ?></h1>
     </header>
     <main>
-        <?php if(isset($_SESSION['mes'])){
-            echo $_SESSION['mes'];
-            unset($_SESSION['mes']);
-        } ?>
+        <div class="error text-center">
+            <p>
+                <?php if(isset($_SESSION['mes'])){
+                    echo $_SESSION['mes'];
+                    unset($_SESSION['mes']);
+                } ?>
+            </p>
+        </div>
         <div class="fiche">
             <p><strong>Nom</strong>:<?= $employer['last_name']; ?></p>
             <p><strong>Prenom</strong>: <?= $employer['first_name']; ?></p>
