@@ -12,9 +12,9 @@ $dd = mysqli_fetch_assoc($d);
 $today = $dd['date'];
 include("../inc/nav.php");
 ?>
-    <head>
+    <header>
         <h1 class="text-center">Changer de departement:</h1>
-    </head>
+    </header>
     <main>
         <div class="row">
             <form action="traitement.php" method="get">

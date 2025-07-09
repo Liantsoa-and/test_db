@@ -5,9 +5,9 @@
  include("../inc/nav.php");
 ?>
 
-<head>
+<header>
     <h1 class="text-center">Liste des employees selon leur genre: </h1>
-</head>
+</header>
 <main>
     <br>
     <table border="1">

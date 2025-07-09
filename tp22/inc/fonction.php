@@ -51,7 +51,7 @@ function avoir_employes_dep($id_dep, $page) {
     
     if ($stmt === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur de préparation de la requête'];
+        return ['error' => 'Erreur de preparation de la requête'];
     }
     
     mysqli_stmt_bind_param($stmt, "sii", $id_dep, $limit, $offset);
@@ -61,7 +61,7 @@ function avoir_employes_dep($id_dep, $page) {
     if ($result === false) {
         mysqli_stmt_close($stmt);
         fermer_connexion($connexion);
-        return ['error' => 'Erreur lors de l\'exécution de la requête'];
+        return ['error' => 'Erreur lors de l\'execution de la requête'];
     }
     
     $retour = [];
@@ -286,13 +286,12 @@ function employe_homme_dept($id_dep){
 function employe_femme_title($title) {
     $connexion = connexion();
     
-    // Utilisation d'une requête préparée
     $sql = "SELECT * FROM v_employees_title_current_femme WHERE title = ?";
     $stmt = mysqli_prepare($connexion, $sql);
     
     if ($stmt === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur de préparation de la requête'];
+        return ['error' => 'Erreur de preparation de la requête'];
     }
     
     mysqli_stmt_bind_param($stmt, "s", $title);
@@ -318,7 +317,7 @@ function employe_homme_title($title) {
     
     if ($stmt === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur de préparation de la requête'];
+        return ['error' => 'Erreur de preparation de la requête'];
     }
     
     mysqli_stmt_bind_param($stmt, "s", $title);
@@ -344,7 +343,7 @@ function avoir_dif_titre() {
     
     if ($result === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur lors de l\'exécution de la requête'];
+        return ['error' => 'Erreur lors de l\'execution de la requête'];
     }
     
     $retour = [];
@@ -366,7 +365,7 @@ function salaire_moyenne_dept($id_dep) {
     
     if ($stmt === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur de préparation de la requête'];
+        return ['error' => 'Erreur de preparation de la requête'];
     }
     
     mysqli_stmt_bind_param($stmt, "s", $id_dep);
@@ -388,7 +387,7 @@ function salaire_moyenne_title($title) {
     
     if ($stmt === false) {
         fermer_connexion($connexion);
-        return ['error' => 'Erreur de préparation de la requête'];
+        return ['error' => 'Erreur de preparation de la requête'];
     }
     
     mysqli_stmt_bind_param($stmt, "s", $title);
@@ -402,8 +401,35 @@ function salaire_moyenne_title($title) {
     return $row ? (float)$row['moyenne'] : 0;
 }
 
-function je_deviens_manager($emp_no){
+function je_deviens_manager($emp_no,$id_dept,$date){
     $connexion = connexion();
+
+    $ancien_manager = manager_en_cours_dept($id_dept);
+    $id_ancien = $ancien_manager['emp_no'];
+
+    $sql1 = "update dept_manager set to_date='$date' where emp_no='$emp_no' and dept_no='$id_dept'";
+    $result1 = mysqli_query($connexion,$sql1);
+
+    $sql3 = "update titles set to_date='$date' where emp_no='$emp_no'";
+    $result3 = mysqli_query($connexion,$sql3);
+
+    if($result1){
+        $sql2 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES ('$id_emp', '$id_dept, '$date', '9999-01-01')";
+        $result2 = mysqli_query($connexion,$sql2);
+
+        $title = "Manager";
+        $sql4 = "INSERT INTO title (emp_no, title, from_date, to_date) VALUES ('$id_emp', '$title', '$date', '9999-01-01')";
+        $result4 = mysqli_query($connexion,$sql4);
+
+        if($result2){
+            return true;
+        } else{
+            return false;
+        }
+
+    } else{
+        return false;
+    }
 }
 
 function manager_en_cours_dept($dept_no){
@@ -417,79 +443,29 @@ function manager_en_cours_dept($dept_no){
     return $result;
 }
 
-/* function changer_dept($id_dep,$id_emp,$date){
-    $connexion = connexion();
+function changer_dept($id_dept, $id_emp, $date) {
+        $connexion = connexion(); 
 
-    //changer to_date de son ancien departement 
-    $dep = son_departement($id_emp);
-    $id_de = $dep['dept_no'];
-    $sql1 = "update table dept_emp set to_date='$date' where emp_no='$id_emp' and dept_no='$id_de'";
-    $result1 = mysql_query($connexion,$sql1);
+        $dep = son_departement($id_emp); 
+        $id_dep = $dep['dept_no'];
 
-    // entrer dans son nouvel departement
-    $sql = "INSERT INTO dept_emp VALUES ('$id_emp','$id_dep','$date','9999-01-01')";
-    $result = mysql_query($connexion,$sql);
+        // Mettre à jour to_date de l'ancien departement
+        $sql1 = "UPDATE dept_emp SET to_date = '$date' WHERE emp_no = '$id_emp' AND dept_no = '$id_dep'";
+        $result1 = mysqli_query($connexion,$sql1);
 
-    if($result){
-        return true;
-    } else{
-        return false;
-    }
-    fermer_connexion($connexion);
-}
- */
-function changer_dept($id_dep, $id_emp, $date) {
-    // Validation des paramètres
-    if (!is_numeric($id_emp) || !is_numeric($id_dep) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-        return false;
-    }
-
-    try {
-        // Connexion à la base de données (PDO)
-        $connexion = connexion(); // Assurez-vous que cette fonction retourne une instance PDO
-        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Démarrer une transaction
-        $connexion->beginTransaction();
-
-        // Récupérer l'ancien département
-        $dep = son_departement($id_emp); // Assurez-vous que cette fonction retourne un tableau valide
-        if (!$dep || !isset($dep['dept_no'])) {
-            throw new Exception("Impossible de récupérer l'ancien département.");
+        if($result1){
+            // Inserer dans le nouveau departement
+            $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES ('$id_emp', '$id_dept, '$date', '9999-01-01')";
+            $result2 = mysqli_query($connexion,$sql2);
+            if(){
+                return true;
+            } else{
+                return false;
+            }
+        } else{
+            return false;
         }
-        $id_de = $dep['dept_no'];
 
-        // Mettre à jour to_date de l'ancien département
-        $sql1 = "UPDATE dept_emp SET to_date = :date WHERE emp_no = :emp_no AND dept_no = :dept_no";
-        $stmt1 = $connexion->prepare($sql1);
-        $stmt1->execute([
-            ':date' => $date,
-            ':emp_no' => $id_emp,
-            ':dept_no' => $id_de
-        ]);
-
-        // Insérer dans le nouveau département
-        $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES (:emp_no, :dept_no, :from_date, '9999-01-01')";
-        $stmt2 = $connexion->prepare($sql2);
-        $stmt2->execute([
-            ':emp_no' => $id_emp,
-            ':dept_no' => $id_dep,
-            ':from_date' => $date
-        ]);
-
-        // Valider la transaction
-        $connexion->commit();
-        return true;
-    } catch (Exception $e) {
-        // Annuler la transaction en cas d'erreur
-        $connexion->rollBack();
-        // Log l'erreur si nécessaire (par exemple, dans un fichier de log)
-        error_log("Erreur dans changer_dept: " . $e->getMessage());
-        return false;
-    } finally {
-        // Fermer la connexion
-        $connexion = null;
-    }
 }
 
 ?>

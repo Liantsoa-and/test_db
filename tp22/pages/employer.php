@@ -6,6 +6,8 @@
  $offset = ($page - 1) * 20; 
  $id_emps = avoir_employes_dep($id_dep,$offset);
  $departement = avoir_departement($id_dep);
+ unset($_SESSION['id_emp']);
+
  include("../inc/nav.php");
 
 ?>

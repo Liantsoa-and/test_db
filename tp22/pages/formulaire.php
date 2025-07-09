@@ -5,16 +5,9 @@ session_start();
 $departements = getDepartments(); 
 include("../inc/nav.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Recherche employé</title>
-</head>
-<body>
-    <head>
-        <h2>Recherche d'employés</h2>
-    </head>
+    <header>
+        <h1>Recherche d'employés</h1>
+    </header>
     <form action="result.php" method="post">
         <label for="dep">Département :</label>
         <select name="dep" id="dep">

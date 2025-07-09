@@ -13,7 +13,6 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
 include("../inc/nav.php");
 
 ?>
-    <title>Résultats</title>
     <style>
         .pagination {
             display: flex;
@@ -21,8 +20,9 @@ include("../inc/nav.php");
             margin-top: 10px;
         }
     </style>
-<body>
-    <h2>Résultats de la recherche</h2>
+    <header>
+        <h1>Résultats de la recherche</h1>
+    </header>
     <a href="formulaire.php">← Nouvelle recherche</a>
 
     <?php if (empty($employes)): ?>

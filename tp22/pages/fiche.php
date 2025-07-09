@@ -1,6 +1,9 @@
 <?php 
  include("../inc/fonction.php");
  session_start();
+ if(isset($_SESSION['id_emp'])){
+    $_GET['id_emp'] = $_SESSION['id_emp'];
+ }
  $id_emp = $_GET['id_emp'];
  $employer = avoir_employe($id_emp);
  $salaires = avoir_histo_salaire($id_emp);
@@ -42,7 +45,7 @@
                 <?php }
             ?>
             <p><a href="changer_dept.php?id_emp=<?= $id_emp; ?>"><button>Changer de departement</button></a></p>
-            <a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>">Devenir manager</a>
+            <p><a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>"><button>Devenir manager</button></a></p>
 
             <?php if($titres != null){ ?> 
                 <p><h2 class="text-center">Historique d'employe :</h2></p>
