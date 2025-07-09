@@ -24,17 +24,17 @@
  // devenir manager
  if(isset($_POST['emp']) && isset($_POST['dept'])){
    $id_emp = $_POST['emp'];
-    $id_dept = $_POST['dept'];
-    $date = $_POST['date'];
-    unset($_SESSION['id_emp']);
+   $id_dept = $_POST['dept'];
+   $date = $_POST['date'];
+   unset($_SESSION['id_emp']);
     
-    if($changer_dep = je_deviens_manager($emp,$dept,$date)){
+    if($changer_dep = je_deviens_manager($id_emp,$id_dept,$date)){
       $_SESSION['mes'] = "Changement de departement reussi !!";
-      $_SESSION['id_emp'] = $emp;
+      $_SESSION['id_emp'] = $id_emp;
       header("Location:fiche.php");
    } else {
       $_SESSION['mes'] = "Impossible de changer de departement !!";
-      $_SESSION['id_emp'] = $emp;
+      $_SESSION['id_emp'] = $id_emp;
       header("Location:fiche.php");
    }
  }

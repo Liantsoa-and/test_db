@@ -401,6 +401,17 @@ function salaire_moyenne_title($title) {
     return $row ? (float)$row['moyenne'] : 0;
 }
 
+function manager_en_cours_dept($id_dept){
+    $connexion = connexion();
+
+    $sql = "select * from v_manager_dept_current where dept_no='$id_dept'";
+    $result = mysqli_query($connexion,$sql);
+    fermer_connexion($connexion);
+
+    return $result;
+
+}
+
 function je_deviens_manager($emp_no,$id_dept,$date){
     $connexion = connexion();
 
@@ -421,6 +432,7 @@ function je_deviens_manager($emp_no,$id_dept,$date){
         $sql4 = "INSERT INTO title (emp_no, title, from_date, to_date) VALUES ('$id_emp', '$title', '$date', '9999-01-01')";
         $result4 = mysqli_query($connexion,$sql4);
 
+        fermer_connexion($connexion);
         if($result2){
             return true;
         } else{
@@ -428,19 +440,9 @@ function je_deviens_manager($emp_no,$id_dept,$date){
         }
 
     } else{
+        fermer_connexion($connexion);
         return false;
     }
-}
-
-function manager_en_cours_dept($dept_no){
-    $connexion = connexion();
-
-   $sql = "SELECT * FROM v_manager_dept_current where dept_no = '$dept_no'";
-   $result = mysqli_query($connexion, $sql);
-
-    fermer_connexion($connexion);
-
-    return $result;
 }
 
 function changer_dept($id_dept, $id_emp, $date) {
@@ -457,12 +459,15 @@ function changer_dept($id_dept, $id_emp, $date) {
             // Inserer dans le nouveau departement
             $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES ('$id_emp', '$id_dept, '$date', '9999-01-01')";
             $result2 = mysqli_query($connexion,$sql2);
-            if(){
+
+            fermer_connexion($connexion);
+            if($result2){
                 return true;
             } else{
                 return false;
             }
         } else{
+            fermer_connexion($connexion);
             return false;
         }
 
