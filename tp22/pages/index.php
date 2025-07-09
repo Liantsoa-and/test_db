@@ -32,6 +32,5 @@
             <?php } ?>
         </table>
     </main>
-    <footer></footer>
 </body>
 </html>

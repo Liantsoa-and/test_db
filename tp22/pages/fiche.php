@@ -87,7 +87,6 @@
                 </table>
             <?php } ?>
         </div>
-
     </main>
 </body>
 </html>

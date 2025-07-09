@@ -11,7 +11,7 @@
  include("../inc/nav.php");
 
 ?>
-<style>
+    <style>
         .pagination {
             display: flex;
             justify-content: space-between;
@@ -59,6 +59,5 @@
             <?php } ?>
         </table>
     </main>
-    <footer></footer>
 </body>
 </html>

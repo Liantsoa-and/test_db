@@ -17,14 +17,16 @@
     <header>
         <h1>Devenir manager de : <strong><?= $departement['dept_name']; ?></strong></h1>
     </header>
-    <p> <strong><?= $employe['last_name']; ?> <?= $employe['first_name']; ?></strong> deviens manager du 
-        <strong><?= $departement['dept_name']; ?></strong> a partir de : 
-    </p>
-    <form action="traitement.php" method="post">
-        <input type="hidden" name="emp" value="<?= $id_emp; ?>">
-        <input type="hidden" name="dept" value="<?= $id_dept; ?>">
-        <input type="date" name="date" id="" min="<?= $today;?>" required>
-        <input type="submit" value="Valider">
-    </form>
+    <main>
+        <p> <strong><?= $employe['last_name']; ?> <?= $employe['first_name']; ?></strong> deviens manager du 
+            <strong><?= $departement['dept_name']; ?></strong> a partir de : 
+        </p>
+        <form action="traitement.php" method="post">
+            <input type="hidden" name="emp" value="<?= $id_emp; ?>">
+            <input type="hidden" name="dept" value="<?= $id_dept; ?>">
+            <input type="date" name="date" id="" min="<?= $today;?>" required>
+            <input type="submit" value="Valider">
+        </form>
+    </main>
 </body>
 </html>

@@ -57,4 +57,3 @@
         <?php } ?>
     </table>
 </main>
-<footer></footer>
