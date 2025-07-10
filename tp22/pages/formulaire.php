@@ -6,8 +6,8 @@ include("header.php");
 $departements = tous_departement();
 
 ?>
-    <header>
-        <h1>Recherche d'employés</h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Recherche d'employés</h1>
     </header>
     <main>
         <form action="result.php" method="post">

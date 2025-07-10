@@ -5,8 +5,8 @@ include("header.php");
  $titres = avoir_dif_titre();
 ?>
 
-<header>
-    <h1 class="text-center">Liste des employees selon leur genre: </h1>
+<header class="mb-4 text-center">
+    <h1 class="display-4 text-primary">Liste des employees selon leur genre: </h1>
 </header>
 <main>
     <br>
@@ -30,7 +30,7 @@ include("header.php");
                     $moyenne_dept = salaire_moyenne_dept($departement['dept_no']);
                     ?>
                     <tr>
-                        <td><a href="employer.php?page=1&id_dept=<?= $departement['dept_no']; ?>"><?= $departement['dept_name']; ?></a></td>
+                        <td><a href="employer.php?page=1&id_dep=<?= $departement['dept_no']; ?>"><?= $departement['dept_name']; ?></a></td>
                         <td><?= $isa_femme; ?></td>
                         <td><?= $isa_homme; ?></td>
                         <td><?= $moyenne_dept; ?>$</td>

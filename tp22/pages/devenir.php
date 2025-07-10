@@ -12,8 +12,8 @@ include("header.php");
  $dd = mysqli_fetch_assoc($d);
  $today = $dd['date'];
 ?>
-    <header>
-        <h1>Devenir manager de : <strong><?= $departement['dept_name']; ?></strong></h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Devenir manager de : <strong><?= $departement['dept_name']; ?></strong></h1>
     </header>
     <main>
         <p> <strong><?= $employe['last_name']; ?> <?= $employe['first_name']; ?></strong> deviens manager du 

@@ -13,8 +13,8 @@
  $titre_actu = titre_en_cours($id_emp);
 
 ?>
-    <header>
-        <h1>Fiche de l'employee: <?= $employer['last_name']; ?></h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Fiche de l'employee: <?= $employer['last_name']; ?></h1>
     </header>
     <main>
         <div class="error text-center">

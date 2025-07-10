@@ -16,8 +16,8 @@
             margin-top: 10px;
         }
     </style>
-    <header>
-        <h1>Liste de tous les employers dans le departement: <?= $departement['dept_name']; ?></h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Liste de tous les employers dans le departement: <?= $departement['dept_name']; ?></h1>
     </header>
     <main>
         <div class="pagination">

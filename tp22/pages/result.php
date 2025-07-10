@@ -18,8 +18,8 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
             margin-top: 10px;
         }
     </style>
-    <header>
-        <h1>Résultats de la recherche</h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Résultats de la recherche</h1>
     </header>
     <main>
         <a href="formulaire.php">← Nouvelle recherche</a>

@@ -11,8 +11,8 @@ $d = mysqli_query($connexion,$sql);
 $dd = mysqli_fetch_assoc($d);
 $today = $dd['date'];
 ?>
-    <header>
-        <h1 class="text-center">Changer de departement:</h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Changer de departement:</h1>
     </header>
     <main>
         <div class="row">
