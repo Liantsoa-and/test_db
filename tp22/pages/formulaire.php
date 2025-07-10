@@ -1,43 +1,11 @@
 <?php
-include("../inc/fonction.php");
-session_start();
-$departements = getDepartments(); 
-$_SESSION['pnum'] = "result.php";
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+include("header.php");
+$departements = manager_en_cours();
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departement</title>
-    <link rel="stylesheet" href="../assets/style.css">
-    <link
-    href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="modele.php?pnum=index.php"><strong> Departements</strong></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="modele.php?pnum=liste.php"><strong> Employees par genre</strong></a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search" action="formulaire.php?" >
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-<body>
     <header>
         <h1>Recherche d'employés</h1>
     </header>
@@ -63,3 +31,6 @@ $_SESSION['pnum'] = "result.php";
             <input type="submit" value="Rechercher">
         </form>
     </main>
+<?php
+include("footer.php");
+?>

@@ -1,6 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+include("header.php");
 $departements = manager_en_cours();
+
 ?>
+
     <header class="mb-4 text-center">
         <h1 class="display-4 text-primary">Découvrez nos Départements</h1>
         <p class="lead">Plongez dans le cœur de notre organisation et explorez chaque département, son manager dévoué et le nombre d'employés qui y contribuent.</p>
@@ -41,4 +47,7 @@ $departements = manager_en_cours();
             </div>
         </main>
     </div>
+<?php
+include("footer.php");
+?>
 
