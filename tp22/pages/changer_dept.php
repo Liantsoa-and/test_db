@@ -1,4 +1,6 @@
 <?php 
+include("header.php");
+
 $id_emp = $_GET['id_emp'];
 $employer = avoir_employe($id_emp);
 $departements = tous_departement();
@@ -27,3 +29,4 @@ $today = $dd['date'];
             </form>
         </div>
     </main>
+    <?php include("footer.php"); ?>

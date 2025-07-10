@@ -1,4 +1,6 @@
 <?php 
+include("header.php");
+
  $id_emp = $_GET['emp'];
  $id_dept = $_GET['dept'];
  $employe = avoir_employe($id_emp);
@@ -24,3 +26,4 @@
             <input type="submit" value="Valider">
         </form>
     </main>
+    <?php include("footer.php"); ?>

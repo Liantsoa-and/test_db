@@ -1,4 +1,5 @@
 <?php 
+ include("header.php");
 
  if(isset($_SESSION['id_emp'])){
     $_GET['id_emp'] = $_SESSION['id_emp'];
@@ -24,6 +25,7 @@
                 } ?>
             </p>
         </div>
+        <br>
         <div class="fiche">
             <p><strong>Nom</strong>:<?= $employer['last_name']; ?></p>
             <p><strong>Prenom</strong>: <?= $employer['first_name']; ?></p>
@@ -46,43 +48,59 @@
                     <p>Le job le plus long est : <strong><?= $titre_longest; ?></strong>, d'une durée de <strong> <?= $duration; ?> ans</strong></p>
                 <?php }
             ?>
-            <p><a href="modele.php?id_emp=<?= $id_emp; ?>&pnum=changer_dept.php"><button>Changer de departement</button></a></p>
-            <p><a href="modele.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>&pnum=devenir.php"><button>Devenir manager</button></a></p>
-
-            <?php if($titres != null){ ?> 
-                <p><h2 class="text-center">Historique d'employe :</h2></p>
-                <table border="1">
-                    <tr>
-                        <th>Titre</th>
-                        <th>Date debut</th>
-                        <th>Date fin</th>
-                    </tr>
-                    <?php foreach($titres as $titre){ ?> 
-                        <tr>
-                            <td><?= $titre['title']; ?></td>
-                            <td><?= $titre['from_date']; ?></td>
-                            <td><?= $titre['to_date']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            <?php } ?>
-
-            <?php if($salaires != null){ ?> 
-                <p><h2 class="text-center">Historique des salaires :</h2></p>
-                <table border="1">
-                    <tr>
-                        <th>Date debut</th>
-                        <th>Montant du salaire</th>
-                        <th>Date fin</th>
-                    </tr>
-                    <?php foreach($salaires as $salaire){ ?> 
-                        <tr>
-                            <td><?= $salaire['from_date']; ?></td>
-                            <td><?= $salaire['salary']; ?>$</td>
-                            <td><?= $salaire['to_date']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            <?php } ?>
+            <br>
+            <p><a href="changer_dept.php?id_emp=<?= $id_emp; ?>"><button>Changer de departement</button></a></p>
+            <br>
+            <p><a href="devenir.php?emp=<?= $id_emp; ?>&&dept=<?= $departement['dept_no']; ?>"><button>Devenir manager</button></a></p>
         </div>
+
+        <?php if($titres != null){ ?> 
+            <p><h2 class="text-center">Historique d'employe :</h2></p>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Date debut</th>
+                            <th scope="col">Date fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($titres as $titre){ ?> 
+                            <tr>
+                                <td><?= $titre['title']; ?></td>
+                                <td><?= $titre['from_date']; ?></td>
+                                <td><?= $titre['to_date']; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+
+        <?php if($salaires != null){ ?> 
+            <p><h2 class="text-center">Historique des salaires :</h2></p>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Date debut</th>
+                            <th scope="col">Montant du salaire</th>
+                            <th scope="col">Date fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($salaires as $salaire){ ?> 
+                            <tr>
+                                <td><?= $salaire['from_date']; ?></td>
+                                <td><?= $salaire['salary']; ?>$</td>
+                                <td><?= $salaire['to_date']; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
     </main>
+
+    <?php include("footer.php"); ?>

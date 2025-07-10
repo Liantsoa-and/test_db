@@ -29,10 +29,7 @@
           <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="employer.php">Employés par genre</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="liste.php">Liste des employés</a>
+          <a class="nav-link" href="liste.php">Employés par genre</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="formulaire.php">Recherche multicritère</a>

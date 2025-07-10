@@ -3,14 +3,14 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 include("header.php");
-$departements = manager_en_cours();
+$departements = tous_departement();
 
 ?>
     <header>
         <h1>Recherche d'employés</h1>
     </header>
     <main>
-        <form action="modele.php" method="post">
+        <form action="result.php" method="post">
             <label for="dep">Département :</label>
             <select name="dep" id="dep">
                 <option value="">-- Tous --</option>
