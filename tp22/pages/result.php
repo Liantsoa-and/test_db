@@ -1,4 +1,5 @@
 <?php
+include("header.php");
 
 $nom = $_POST['nom_employee'] ?? '';
 $dep = $_POST['dep'] ?? '';
@@ -70,3 +71,6 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
             <br>
         <?php endif; ?>
     </main>
+<?php
+include("footer.php");
+?>

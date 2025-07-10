@@ -27,7 +27,7 @@ $departements = manager_en_cours();
                             $isa = compter_emp($departement['dept_no']); ?>
                             <tr>
                                 <td>
-                                    <a href="modele.php?id_dep=<?= $departement['dept_no']; ?>&page=1&pnum=employer.php" class="text-decoration-none fw-bold text-info"> <?= htmlspecialchars($departement['dept_name']); ?>
+                                    <a href="employer.php?id_dep=<?= $departement['dept_no']; ?>&page=1" class="text-decoration-none fw-bold text-info"> <?= htmlspecialchars($departement['dept_name']); ?>
                                     </a>
                                 </td>
                                 <td>

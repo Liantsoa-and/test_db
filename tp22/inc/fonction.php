@@ -411,6 +411,17 @@ function manager_en_cours_dept($id_dept){
 
 }
 
+function manager_dept($id_dept){
+    $connexion = connexion();
+
+    $sql = "SELECT * FROM v_manager_dept_current WHERE dept_no = '$id_dept' AND to_date = '9999-01-01'";
+    $result = mysqli_query($connexion, $sql);
+    $donnes = mysqli_fetch_assoc($result);
+    fermer_connexion($connexion);
+
+    return $donnes;
+}
+
 function je_deviens_manager($emp_no, $id_dept, $date) {
     $connexion = connexion();
     if (!$connexion) {
