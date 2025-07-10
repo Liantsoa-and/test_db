@@ -28,16 +28,15 @@
    $id_dept = $_POST['dept'];
    $date = $_POST['date'];
    unset($_SESSION['id_emp']);
-   $_SESSION['pnum'] = "fiche.php";
     
     if($changer_dep = je_deviens_manager($id_emp,$id_dept,$date)){
       $_SESSION['mes'] = "Vous avez reussi a devenir manager de !!";
       $_SESSION['id_emp'] = $id_emp;
-      header("Location:modele.php");
+      header("Location:fiche.php");
    } else {
       $_SESSION['mes'] = "Impossible de devenir manager !!";
       $_SESSION['id_emp'] = $id_emp;
-      header("Location:modele.php");
+      header("Location:fiche.php");
    }
  }
 ?>

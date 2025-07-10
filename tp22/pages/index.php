@@ -34,7 +34,7 @@ $departements = manager_en_cours();
                                     <span class="text-secondary"><?= htmlspecialchars($departement['first_name'] . ' ' . $departement['last_name']); ?></span>
                                 </td>
                                 <td>
-                                    <span class="badge bg-success rounded-pill"><?= htmlspecialchars($isa['isa']); ?></span> </td>
+                                    <span ><?= htmlspecialchars($isa['isa']); ?></span> </td>
                             </tr>
                         <?php } ?>
                         <?php if (empty($departements)): ?>

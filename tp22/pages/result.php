@@ -18,8 +18,8 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
             margin-top: 10px;
         }
     </style>
-    <header>
-        <h1>Résultats de la recherche</h1>
+    <header class="mb-4 text-center">
+        <h1 class="display-4 text-primary">Résultats de la recherche</h1>
     </header>
     <main>
         <a href="formulaire.php">← Nouvelle recherche</a>
@@ -29,46 +29,56 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
         <?php else: ?>
             <div class="pagination">
                 <?php if ($page > 1): ?>
-                    <form method="get" action="modele.php">
+                    <form method="get" action="result.php">
                         <input type="hidden" name="nom" value="<?= htmlspecialchars($nom) ?>">
                         <input type="hidden" name="dep" value="<?= htmlspecialchars($dep) ?>">
                         <input type="hidden" name="age_min" value="<?= htmlspecialchars($age_min) ?>">
                         <input type="hidden" name="age_max" value="<?= htmlspecialchars($age_max) ?>">
-                        <input type="hidden" name="pnum" value="result.php">
                         <input type="hidden" name="page" value="<?= $page - 1 ?>">
                         <input type="submit" value="← Précédent">
                     </form>
                 <?php endif; ?>
-                <form action="modele.php" method="get">
+                <form action="result.php" method="get">
                     <input type="hidden" name="nom" value="<?= htmlspecialchars($nom) ?>">
                     <input type="hidden" name="dep" value="<?= htmlspecialchars($dep) ?>">
                     <input type="hidden" name="age_min" value="<?= htmlspecialchars($age_min) ?>">
                     <input type="hidden" name="age_max" value="<?= htmlspecialchars($age_max) ?>">
                     <input type="hidden" name="page" value="<?= $page+1 ?>">
-                    <input type="hidden" name="pnum" value="result.php">
                     <input type="submit" value="Page suivante">
                 </form>
             </div>
-            <table border="1">
-                <tr>
-                    <th>ID</th><th>Nom</th><th>Prénom</th><th>Genre</th><th>Date de naissance</th><th>Date d’embauche</th><th>Âge</th>
-                </tr>
-                <?php foreach ($employes as $e): ?>
-                    <tr>
-                        <td><?= $e['emp_no'] ?></td>
-                        <td><a href="modele.php?id_emp=<?= $e['emp_no'] ;?>&pnum=fiche.php">
-                                <?= htmlspecialchars($e['last_name']) ?>
-                            </a>
-                        </td>
-                        <td><?= htmlspecialchars($e['first_name']) ?></td>
-                        <td><?= $e['gender'] ?></td>
-                        <td><?= $e['birth_date'] ?></td>
-                        <td><?= $e['hire_date'] ?></td>
-                        <td><?= date('Y') - substr($e['birth_date'], 0, 4) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-            <br>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Genre</th>
+                            <th scope="col">Date de naissance</th>
+                            <th scope="col">Date d’embauche</th>
+                            <th scope="col">Âge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($employes as $e): ?>
+                            <tr>
+                                <td><?= $e['emp_no'] ?></td>
+                                <td><a href="fiche.php?id_emp=<?= $e['emp_no'] ;?>">
+                                        <?= htmlspecialchars($e['last_name']) ?>
+                                    </a>
+                                </td>
+                                <td><?= htmlspecialchars($e['first_name']) ?></td>
+                                <td><?= $e['gender'] ?></td>
+                                <td><?= $e['birth_date'] ?></td>
+                                <td><?= $e['hire_date'] ?></td>
+                                <td><?= date('Y') - substr($e['birth_date'], 0, 4) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <br>
         <?php endif; ?>
     </main>
 <?php
