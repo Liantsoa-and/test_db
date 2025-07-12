@@ -457,6 +457,13 @@ function je_deviens_manager($emp_no, $id_dept, $date) {
     $result22 = mysqli_stmt_execute($stmt22);
     mysqli_stmt_close($stmt22); 
 
+    // mettre a jour hire_date
+        $sql11 = "UPDATE employees SET hire_date = ? WHERE emp_no = ?";
+        $stmt11 = mysqli_prepare($connexion, $sql11);
+        mysqli_stmt_bind_param($stmt11, "si", $date, $emp_no);
+        $result11 = mysqli_stmt_execute($stmt11);
+        mysqli_stmt_close($stmt11);
+
 
     // inserer le $emp_no etant nouveau manager de $id_dept
     if ($result1) {
