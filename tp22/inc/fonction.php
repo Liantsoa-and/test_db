@@ -15,7 +15,7 @@ function manager_en_cours(){
 function son_departement($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT dept_no,dept_name from v_employees_dept_current WHERE emp_no = '$id_emp'";
+    $sql = "SELECT dept_no,dept_name from v_employees_dept WHERE emp_no = '$id_emp' and to_date='9999-01-01'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
@@ -497,6 +497,13 @@ function changer_dept($id_dept, $id_emp, $date) {
         mysqli_stmt_bind_param($stmt1, "sis", $date, $id_emp, $id_dep);
         $result1 = mysqli_stmt_execute($stmt1);
         mysqli_stmt_close($stmt1);
+
+        // mettre a jour hire_date
+        $sql11 = "UPDATE employees SET hire_date = ? WHERE emp_no = ?";
+        $stmt11 = mysqli_prepare($connexion, $sql11);
+        mysqli_stmt_bind_param($stmt11, "si", $date, $id_emp);
+        $result11 = mysqli_stmt_execute($stmt11);
+        mysqli_stmt_close($stmt11);
 
         // inserer les donnes ou $id_emp change de departement en $id_dept
         if ($result1) {

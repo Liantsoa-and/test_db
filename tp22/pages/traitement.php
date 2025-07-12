@@ -10,16 +10,15 @@
     $id_dept = $_GET['id_dept'];
     $date = $_GET['date'];
     unset($_SESSION['id_emp']);
-    $_SESSION['pnum'] = "fiche.php";
     
     if($changer_dep = changer_dept($id_dept,$id_emp,$date)){
       $_SESSION['mes'] = "Changement de departement reussi !!";
       $_SESSION['id_emp'] = $id_emp;
-      header("Location:modele.php");
+      header("Location:fiche.php");
    } else {
       $_SESSION['mes'] = "Impossible de changer de departement !!";
       $_SESSION['id_emp'] = $id_emp;
-      header("Location:modele.php");
+      header("Location:fiche.php");
    }
  }
 

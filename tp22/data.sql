@@ -22,7 +22,6 @@ on d.dept_no=de.dept_no;
 create or replace view v_manager_dept_current as
 select * from v_manager_dept where to_date='9999-01-01';
 
-
 /* ok */
 create or replace view v_employees_title as
 select e.*,t.title,t.from_date,t.to_date 

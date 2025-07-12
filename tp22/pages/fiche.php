@@ -30,8 +30,8 @@ include("header.php");
             <p><strong>Prenom</strong>: <?= $employer['first_name']; ?></p>
             <p><strong>Genre</strong>: <?= $employer['gender']; ?></p>
             <p><strong>Date de naissance</strong>: <?= $employer['birth_date']; ?></p>
-            <p><strong>Date d'embauche</strong>: <?= $employer['hire_date']; ?></p>
             <p><strong>Departement</strong>: <?= $departement['dept_name']; ?></p>
+            <p><strong>Date d'embauche</strong>: <?= $employer['hire_date']; ?></p>
             <?php if($salaire_actu != null){ ?>
                 <p><strong>Salaire actuel</strong> : <?= $salaire_actu['salary']; ?>$</p>
             <?php } ?>
