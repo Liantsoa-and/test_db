@@ -15,7 +15,7 @@ function manager_en_cours(){
 function son_departement($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT d.* FROM dept_emp as dept_e join departments as d on dept_e.dept_no = d.dept_no WHERE emp_no = '$id_emp'";
+    $sql = "SELECT dept_no,dept_name from v_employees_dept_current WHERE emp_no = '$id_emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
@@ -417,6 +417,7 @@ function je_deviens_manager($emp_no, $id_dept, $date) {
         return false;
     }
 
+    // mettre fin a la place de manager a l'ancien manger en cours
     $ancien_manager = manager_en_cours_dept($id_dept);
     $id_ancien = $ancien_manager ? mysqli_fetch_assoc($ancien_manager)['emp_no'] : null;
 
@@ -426,18 +427,33 @@ function je_deviens_manager($emp_no, $id_dept, $date) {
     $result1 = mysqli_stmt_execute($stmt1);
     mysqli_stmt_close($stmt1);
 
-    $sql3 = "UPDATE titles SET to_date = ? WHERE emp_no = ? AND to_date = '9999-01-01'";
-    $stmt3 = mysqli_prepare($connexion, $sql3);
-    mysqli_stmt_bind_param($stmt3, "si", $date, $emp_no);
-    $result3 = mysqli_stmt_execute($stmt3);
-    mysqli_stmt_close($stmt3);
+    $sql2 = "UPDATE titles SET to_date = ? WHERE emp_no = ? AND to_date = '9999-01-01'";
+    $stmt2 = mysqli_prepare($connexion, $sql2);
+    mysqli_stmt_bind_param($stmt2, "si", $date, $id_ancien);
+    $result2 = mysqli_stmt_execute($stmt2);
+    mysqli_stmt_close($stmt2);
 
+    // mettre fin a l'ancien titre de $emp_no
+    $sql11 = "UPDATE dept_emp SET to_date = ? WHERE emp_no = ? AND dept_no = ? AND to_date = '9999-01-01'";
+    $stmt11 = mysqli_prepare($connexion, $sql11);
+    mysqli_stmt_bind_param($stmt11, "sis", $date, $emp_no, $id_dept);
+    $result11 = mysqli_stmt_execute($stmt11);
+    mysqli_stmt_close($stmt11);
+
+    $sql22 = "UPDATE titles SET to_date = ? WHERE emp_no = ? AND to_date = '9999-01-01'";
+    $stmt22 = mysqli_prepare($connexion, $sql22);
+    mysqli_stmt_bind_param($stmt22, "si", $date, $emp_no);
+    $result22 = mysqli_stmt_execute($stmt22);
+    mysqli_stmt_close($stmt22); 
+
+
+    // inserer le $emp_no etant nouveau manager de $id_dept
     if ($result1) {
-        $sql2 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
-        $stmt2 = mysqli_prepare($connexion, $sql2);
-        mysqli_stmt_bind_param($stmt2, "iss", $emp_no, $id_dept, $date);
-        $result2 = mysqli_stmt_execute($stmt2);
-        mysqli_stmt_close($stmt2);
+        $sql3 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
+        $stmt3 = mysqli_prepare($connexion, $sql3);
+        mysqli_stmt_bind_param($stmt3, "iss", $emp_no, $id_dept, $date);
+        $result3 = mysqli_stmt_execute($stmt3);
+        mysqli_stmt_close($stmt3);
 
         $title = "Manager";
         $sql4 = "INSERT INTO titles (emp_no, title, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
@@ -447,7 +463,7 @@ function je_deviens_manager($emp_no, $id_dept, $date) {
         mysqli_stmt_close($stmt4);
 
         fermer_connexion($connexion);
-        return $result2 && $result4;
+        return $result3 && $result4;
     }
 
     fermer_connexion($connexion);
@@ -464,12 +480,14 @@ function changer_dept($id_dept, $id_emp, $date) {
     $id_dep = $dep ? $dep['dept_no'] : null;
 
     if ($id_dep) {
+        // mettre fin a sa place dans son ancien departement
         $sql1 = "UPDATE dept_emp SET to_date = ? WHERE emp_no = ? AND dept_no = ? AND to_date = '9999-01-01'";
         $stmt1 = mysqli_prepare($connexion, $sql1);
         mysqli_stmt_bind_param($stmt1, "sis", $date, $id_emp, $id_dep);
         $result1 = mysqli_stmt_execute($stmt1);
         mysqli_stmt_close($stmt1);
 
+        // inserer les donnes ou $id_emp change de departement en $id_dept
         if ($result1) {
             $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES (?, ?, ?, '9999-01-01')";
             $stmt2 = mysqli_prepare($connexion, $sql2);
