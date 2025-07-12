@@ -81,4 +81,6 @@ $employes = recherche_employes($nom, $dep, $age_min, $age_max, $offset);
         <br>
         <?php endif; ?>
     </main>
-    <?php include("footer.php"); ?>
+<?php
+include("footer.php");
+?>

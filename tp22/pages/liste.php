@@ -1,6 +1,5 @@
 <?php
 include("header.php");
-
  $departements = tous_departement();
  $titres = avoir_dif_titre();
 ?>
@@ -70,4 +69,6 @@ include("header.php");
         </table>
     </div>
 </main>
-<?php include("footer.php"); ?>
+<?php
+include("footer.php");
+?>

@@ -1,5 +1,6 @@
 <?php
  include("../inc/fonction.php");
+ $numer=1;
  session_start();
 
  // changer de departement
@@ -39,4 +40,6 @@
       header("Location:fiche.php");
    }
  }
+
+
 ?>

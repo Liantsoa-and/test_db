@@ -1,6 +1,5 @@
 <?php 
- include("header.php");
-
+include("header.php");
  $id_dep = $_GET['id_dep'];
  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
  $offset = ($page - 1) * 20; 
@@ -64,4 +63,6 @@
             </div>
         </table>
     </main>
-    <?php include("footer.php"); ?>
+<?php
+include("footer.php");
+?>
