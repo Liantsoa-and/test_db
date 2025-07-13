@@ -15,7 +15,7 @@ function manager_en_cours(){
 function son_departement($id_emp){
     $connexion = connexion();
 
-    $sql = "SELECT dept_no,dept_name from v_employees_dept WHERE emp_no = '$id_emp' and to_date='9999-01-01'";
+    $sql = "SELECT dept_no,dept_name from v_employees_dept_current WHERE emp_no = '$id_emp'";
     $result = mysqli_query($connexion, $sql);
     $donnes = mysqli_fetch_assoc($result);
     fermer_connexion($connexion);
