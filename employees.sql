@@ -110,18 +110,18 @@ CREATE OR REPLACE VIEW current_dept_emp AS
 flush /*!50503 binary */ logs;
 
 SELECT 'LOADING departments' as 'INFO';
-source C:/xampp/htdocs/test_db/load_departments.dump ;
+source load_departments.dump ;
 SELECT 'LOADING employees' as 'INFO';
-source C:/xampp/htdocs/test_db/load_employees.dump ;
+source load_employees.dump ;
 SELECT 'LOADING dept_emp' as 'INFO';
-source C:/xampp/htdocs/test_db/load_dept_emp.dump ;
+source load_dept_emp.dump ;
 SELECT 'LOADING dept_manager' as 'INFO';
-source C:/xampp/htdocs/test_db/load_dept_manager.dump ;
+source load_dept_manager.dump ;
 SELECT 'LOADING titles' as 'INFO';
-source C:/xampp/htdocs/test_db/load_titles.dump ;
+source load_titles.dump ;
 SELECT 'LOADING salaries' as 'INFO';
-source C:/xampp/htdocs/test_db/load_salaries1.dump ;
-source C:/xampp/htdocs/test_db/load_salaries2.dump ;
-source C:/xampp/htdocs/test_db/load_salaries3.dump ;
+source load_salaries1.dump ;
+source load_salaries2.dump ;
+source load_salaries3.dump ;
 
-source C:/xampp/htdocs/test_db/show_elapsed.sql ;
+source show_elapsed.sql ;
