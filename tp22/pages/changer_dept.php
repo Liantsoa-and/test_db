@@ -14,7 +14,7 @@ $today = $dd['date'];
 
 <header class="mb-5 text-center">
     <h1 class="display-5 text-primary fw-semibold">Changer de département</h1>
-    <p class="text-muted">Employé concerné : <strong><?= $employer['prenom'] . ' ' . $employer['nom']; ?></strong></p>
+    <p class="text-muted">Employé concerné : <strong><?= $employer['first_name'] . ' ' . $employer['last_name']; ?></strong></p>
 </header>
 
 <main class="container">
