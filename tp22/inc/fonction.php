@@ -529,4 +529,22 @@ function changer_dept($id_dept, $id_emp, $date) {
     return false;
 }
 
+function pas_tous_departement($id_emp){
+    $connexion = connexion();
+
+    $son_dept = son_departement($id_emp);
+    $id_son_dept = $son_dept['dept_no'];
+
+   $sql = "SELECT * FROM departments where dept_no != '$id_son_dept'";
+   $result = mysqli_query($connexion, $sql);
+
+   $retour = [];
+    while($donnes = mysqli_fetch_assoc($result)){
+        $retour[] = $donnes;
+    }
+    fermer_connexion($connexion);
+
+    return $retour;
+}
+
 ?>
